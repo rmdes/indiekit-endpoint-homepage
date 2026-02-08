@@ -1,0 +1,241 @@
+import express from "express";
+import { fileURLToPath } from "node:url";
+import path from "node:path";
+
+import { dashboardController } from "./lib/controllers/dashboard.js";
+import { apiController } from "./lib/controllers/api.js";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+const protectedRouter = express.Router();
+const publicRouter = express.Router();
+
+const defaults = {
+  mountPath: "/homepage",
+  contentDir: "/app/data/content",
+};
+
+export default class HomepageEndpoint {
+  name = "Homepage builder endpoint";
+
+  constructor(options = {}) {
+    this.options = { ...defaults, ...options };
+    this.mountPath = this.options.mountPath;
+  }
+
+  get localesDirectory() {
+    return path.join(__dirname, "locales");
+  }
+
+  get viewsDirectory() {
+    return path.join(__dirname, "views");
+  }
+
+  get navigationItems() {
+    return {
+      href: this.options.mountPath,
+      text: "homepage.title",
+      requiresDatabase: true,
+    };
+  }
+
+  get shortcutItems() {
+    return {
+      url: this.options.mountPath,
+      name: "homepage.title",
+      iconName: "home",
+      requiresDatabase: true,
+    };
+  }
+
+  /**
+   * Built-in section types (always available)
+   */
+  get homepageSections() {
+    return [
+      {
+        id: "hero",
+        label: "Hero Section",
+        description: "Author intro with avatar, name, title, and bio",
+        icon: "user",
+        dataEndpoint: null, // Uses site config, no API call needed
+        defaultConfig: {
+          showAvatar: true,
+          showSocialLinks: true,
+        },
+        configSchema: {
+          showAvatar: { type: "boolean", label: "Show avatar" },
+          showSocialLinks: { type: "boolean", label: "Show social links" },
+        },
+      },
+      {
+        id: "recent-posts",
+        label: "Recent Posts",
+        description: "Latest posts from your blog",
+        icon: "file-text",
+        dataEndpoint: null, // Uses Eleventy collections
+        defaultConfig: {
+          maxItems: 10,
+          postTypes: ["note", "article", "photo", "bookmark"],
+        },
+        configSchema: {
+          maxItems: { type: "number", label: "Max items", min: 1, max: 50 },
+          postTypes: { type: "array", label: "Post types to include" },
+        },
+      },
+      {
+        id: "custom-html",
+        label: "Custom Content",
+        description: "Freeform HTML or Markdown block",
+        icon: "code",
+        dataEndpoint: null,
+        defaultConfig: {
+          content: "",
+        },
+        configSchema: {
+          content: { type: "textarea", label: "Content (HTML/Markdown)" },
+        },
+      },
+    ];
+  }
+
+  /**
+   * Built-in sidebar widget types
+   */
+  get homepageWidgets() {
+    return [
+      {
+        id: "author-card",
+        label: "Author Card",
+        description: "h-card with author info",
+        icon: "user",
+        defaultConfig: {},
+        configSchema: {},
+      },
+      {
+        id: "recent-posts",
+        label: "Recent Posts",
+        description: "Latest posts sidebar",
+        icon: "file-text",
+        defaultConfig: { maxItems: 5 },
+        configSchema: {
+          maxItems: { type: "number", label: "Max items", min: 1, max: 20 },
+        },
+      },
+      {
+        id: "categories",
+        label: "Categories",
+        description: "Tag cloud",
+        icon: "tag",
+        defaultConfig: {},
+        configSchema: {},
+      },
+      {
+        id: "search",
+        label: "Search",
+        description: "Site search box",
+        icon: "search",
+        defaultConfig: {},
+        configSchema: {},
+      },
+    ];
+  }
+
+  /**
+   * Protected routes (require authentication)
+   */
+  get routes() {
+    // Dashboard - main admin UI
+    protectedRouter.get("/", dashboardController.get);
+
+    // Save configuration
+    protectedRouter.post("/save", dashboardController.save);
+
+    // Get available sections (for section picker)
+    protectedRouter.get("/api/sections", apiController.listSections);
+
+    // Get available widgets
+    protectedRouter.get("/api/widgets", apiController.listWidgets);
+
+    // Get current config
+    protectedRouter.get("/api/config", apiController.getConfig);
+
+    return protectedRouter;
+  }
+
+  /**
+   * Public routes (no authentication required)
+   */
+  get routesPublic() {
+    // Public API for Eleventy to fetch config
+    publicRouter.get("/api/config.json", apiController.getConfigPublic);
+
+    return publicRouter;
+  }
+
+  init(Indiekit) {
+    Indiekit.addEndpoint(this);
+
+    // Add MongoDB collection for homepage config
+    Indiekit.addCollection("homepageConfig");
+
+    // Store config in application for controller access
+    Indiekit.config.application.homepageConfig = this.options;
+    Indiekit.config.application.homepageEndpoint = this.mountPath;
+
+    // Store content directory path
+    Indiekit.config.application.contentDir =
+      this.options.contentDir ||
+      process.env.CONTENT_DIR ||
+      "/app/data/content";
+
+    // Store database getter for controller access
+    Indiekit.config.application.getHomepageDb = () => Indiekit.database;
+
+    // Store reference to Indiekit for plugin discovery
+    Indiekit.config.application.indiekitInstance = Indiekit;
+
+    // Discover sections and widgets from other plugins
+    this._discoverPluginSections(Indiekit);
+  }
+
+  /**
+   * Discover homepageSections and homepageWidgets from all loaded plugins
+   */
+  _discoverPluginSections(Indiekit) {
+    const discoveredSections = [...this.homepageSections];
+    const discoveredWidgets = [...this.homepageWidgets];
+
+    // Scan all endpoints for homepageSections
+    for (const endpoint of Indiekit.endpoints || []) {
+      if (endpoint === this) continue; // Skip self
+
+      if (endpoint.homepageSections) {
+        for (const section of endpoint.homepageSections) {
+          // Add source plugin info
+          discoveredSections.push({
+            ...section,
+            sourcePlugin: endpoint.name,
+          });
+        }
+      }
+
+      if (endpoint.homepageWidgets) {
+        for (const widget of endpoint.homepageWidgets) {
+          discoveredWidgets.push({
+            ...widget,
+            sourcePlugin: endpoint.name,
+          });
+        }
+      }
+    }
+
+    // Store discovered sections/widgets for API access
+    Indiekit.config.application.discoveredSections = discoveredSections;
+    Indiekit.config.application.discoveredWidgets = discoveredWidgets;
+
+    console.log(
+      `[Homepage] Discovered ${discoveredSections.length} sections, ${discoveredWidgets.length} widgets`
+    );
+  }
+}

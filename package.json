@@ -1,0 +1,52 @@
+{
+  "name": "@rmdes/indiekit-endpoint-homepage",
+  "version": "1.0.0",
+  "description": "Homepage builder endpoint for Indiekit. Configure layout, sections, and sidebar widgets from the admin UI.",
+  "keywords": [
+    "indiekit",
+    "indiekit-plugin",
+    "indieweb",
+    "homepage",
+    "layout",
+    "builder"
+  ],
+  "homepage": "https://github.com/rmdes/indiekit-endpoint-homepage",
+  "bugs": {
+    "url": "https://github.com/rmdes/indiekit-endpoint-homepage/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rmdes/indiekit-endpoint-homepage.git"
+  },
+  "author": {
+    "name": "Ricardo Mendes",
+    "url": "https://rmendes.net"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "type": "module",
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js"
+  },
+  "files": [
+    "lib",
+    "locales",
+    "views",
+    "assets",
+    "index.js"
+  ],
+  "dependencies": {
+    "@indiekit/error": "^1.0.0-beta.25",
+    "@indiekit/frontend": "^1.0.0-beta.25",
+    "express": "^5.0.0"
+  },
+  "peerDependencies": {
+    "@indiekit/indiekit": ">=1.0.0-beta.25"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

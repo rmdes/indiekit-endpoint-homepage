@@ -1,0 +1,31 @@
+{
+  "homepage": {
+    "title": "Homepage Builder",
+    "description": "Configure your homepage layout, sections, and sidebar widgets.",
+    "saved": "Configuration saved successfully. Refresh your homepage to see changes.",
+    "save": "Save Configuration",
+    "layout": {
+      "title": "Layout",
+      "singleColumn": "Single Column",
+      "twoColumn": "Two Column with Sidebar",
+      "fullWidthHero": "Full-width Hero + Grid"
+    },
+    "hero": {
+      "title": "Hero Section",
+      "enabled": "Show hero section with author info",
+      "showSocial": "Show social links in hero"
+    },
+    "sections": {
+      "title": "Content Sections",
+      "description": "Add and arrange sections that appear on your homepage.",
+      "add": "Add Section",
+      "empty": "No sections configured. Add sections from the picker below."
+    },
+    "sidebar": {
+      "title": "Sidebar Widgets",
+      "description": "Configure widgets that appear in the sidebar (only visible with two-column layout).",
+      "add": "Add Widget",
+      "empty": "No widgets configured. Add widgets from the picker below."
+    }
+  }
+}

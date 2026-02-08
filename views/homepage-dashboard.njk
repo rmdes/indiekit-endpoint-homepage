@@ -1,0 +1,349 @@
+{% extends "document.njk" %}
+
+{% block content %}
+<style>
+  .hp-dashboard {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl, 2rem);
+  }
+
+  .hp-section {
+    background: var(--color-offset, #f5f5f5);
+    border-radius: var(--border-radius-small, 0.5rem);
+    padding: var(--space-m, 1.5rem);
+  }
+
+  .hp-section h2 {
+    font: var(--font-heading, bold 1.25rem/1.4 sans-serif);
+    margin-block-end: var(--space-s, 0.75rem);
+    padding-block-end: var(--space-xs, 0.5rem);
+    border-block-end: 1px solid var(--color-outline-variant, #ddd);
+  }
+
+  .hp-layout-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--space-s, 0.75rem);
+  }
+
+  .hp-layout-option {
+    background: var(--color-background, #fff);
+    border: 2px solid var(--color-outline-variant, #ddd);
+    border-radius: var(--border-radius-small, 0.5rem);
+    padding: var(--space-s, 0.75rem);
+    cursor: pointer;
+    transition: border-color 0.2s;
+    text-align: center;
+  }
+
+  .hp-layout-option:hover {
+    border-color: var(--color-primary, #0066cc);
+  }
+
+  .hp-layout-option.selected {
+    border-color: var(--color-primary, #0066cc);
+    background: var(--color-primary-container, #e6f0ff);
+  }
+
+  .hp-layout-option input {
+    display: none;
+  }
+
+  .hp-layout-option svg {
+    width: 80px;
+    height: 60px;
+    margin-block-end: var(--space-xs, 0.5rem);
+  }
+
+  .hp-sections-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs, 0.5rem);
+  }
+
+  .hp-section-item {
+    background: var(--color-background, #fff);
+    border: 1px solid var(--color-outline-variant, #ddd);
+    border-radius: var(--border-radius-small, 0.25rem);
+    padding: var(--space-s, 0.75rem);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-s, 0.75rem);
+  }
+
+  .hp-section-item__info {
+    flex: 1;
+  }
+
+  .hp-section-item__name {
+    font-weight: 600;
+  }
+
+  .hp-section-item__type {
+    color: var(--color-on-offset, #666);
+    font: var(--font-caption, 0.75rem/1.4 sans-serif);
+  }
+
+  .hp-section-item__actions {
+    display: flex;
+    gap: var(--space-2xs, 0.25rem);
+  }
+
+  .hp-section-picker {
+    margin-block-start: var(--space-m, 1rem);
+    padding: var(--space-s, 0.75rem);
+    background: var(--color-background, #fff);
+    border: 1px dashed var(--color-outline-variant, #ddd);
+    border-radius: var(--border-radius-small, 0.25rem);
+  }
+
+  .hp-section-picker h3 {
+    font: var(--font-subhead, bold 1rem/1.4 sans-serif);
+    margin-block-end: var(--space-xs, 0.5rem);
+  }
+
+  .hp-section-picker__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: var(--space-xs, 0.5rem);
+  }
+
+  .hp-section-picker__item {
+    background: var(--color-offset, #f5f5f5);
+    border: 1px solid var(--color-outline-variant, #ddd);
+    border-radius: var(--border-radius-small, 0.25rem);
+    padding: var(--space-xs, 0.5rem);
+    cursor: pointer;
+    text-align: center;
+    font: var(--font-caption, 0.875rem/1.4 sans-serif);
+  }
+
+  .hp-section-picker__item:hover {
+    background: var(--color-primary-container, #e6f0ff);
+    border-color: var(--color-primary, #0066cc);
+  }
+
+  .hp-empty {
+    color: var(--color-on-offset, #666);
+    font: var(--font-caption, 0.875rem/1.4 sans-serif);
+    text-align: center;
+    padding: var(--space-m, 1rem);
+  }
+
+  .hp-success {
+    background: var(--color-success-container, #d4edda);
+    border: 1px solid var(--color-success, #28a745);
+    border-radius: var(--border-radius-small, 0.25rem);
+    padding: var(--space-s, 0.75rem);
+    margin-block-end: var(--space-m, 1rem);
+  }
+</style>
+
+<header class="page-header">
+  <h1 class="page-header__title">{{ __("homepage.title") }}</h1>
+  <p class="page-header__description">{{ __("homepage.description") }}</p>
+</header>
+
+{% if request.query.saved %}
+<div class="hp-success">
+  <p>{{ __("homepage.saved") }}</p>
+</div>
+{% endif %}
+
+<form method="post" action="{{ homepageEndpoint }}/save" class="hp-dashboard">
+  {# Layout Selection #}
+  <section class="hp-section">
+    <h2>{{ __("homepage.layout.title") }}</h2>
+    <div class="hp-layout-grid">
+      {% for layout in layouts %}
+      <label class="hp-layout-option {% if config.layout == layout.id %}selected{% endif %}">
+        <input type="radio" name="layout" value="{{ layout.id }}" {% if config.layout == layout.id %}checked{% endif %}>
+        {# Simple layout previews #}
+        {% if layout.id == "single-column" %}
+        <svg viewBox="0 0 80 60"><rect x="10" y="5" width="60" height="50" fill="#ddd" stroke="#999"/></svg>
+        {% elif layout.id == "two-column" %}
+        <svg viewBox="0 0 80 60"><rect x="5" y="5" width="45" height="50" fill="#ddd" stroke="#999"/><rect x="55" y="5" width="20" height="50" fill="#eee" stroke="#999"/></svg>
+        {% else %}
+        <svg viewBox="0 0 80 60"><rect x="5" y="5" width="70" height="20" fill="#ddd" stroke="#999"/><rect x="5" y="30" width="32" height="25" fill="#eee" stroke="#999"/><rect x="42" y="30" width="32" height="25" fill="#eee" stroke="#999"/></svg>
+        {% endif %}
+        <div>{{ layout.label }}</div>
+      </label>
+      {% endfor %}
+    </div>
+  </section>
+
+  {# Hero Configuration #}
+  <section class="hp-section">
+    <h2>{{ __("homepage.hero.title") }}</h2>
+    <div class="field">
+      <label class="field__label">
+        <input type="checkbox" name="hero[enabled]" value="true" {% if config.hero.enabled %}checked{% endif %}>
+        {{ __("homepage.hero.enabled") }}
+      </label>
+    </div>
+    <div class="field">
+      <label class="field__label">
+        <input type="checkbox" name="hero[showSocial]" value="true" {% if config.hero.showSocial %}checked{% endif %}>
+        {{ __("homepage.hero.showSocial") }}
+      </label>
+    </div>
+  </section>
+
+  {# Sections #}
+  <section class="hp-section">
+    <h2>{{ __("homepage.sections.title") }}</h2>
+    <p class="hp-section__desc">{{ __("homepage.sections.description") }}</p>
+
+    <ul class="hp-sections-list" id="sections-list">
+      {% if config.sections and config.sections.length %}
+        {% for section in config.sections %}
+        <li class="hp-section-item" data-type="{{ section.type }}">
+          <div class="hp-section-item__info">
+            <span class="hp-section-item__name">
+              {% for s in sections %}{% if s.id == section.type %}{{ s.label }}{% endif %}{% endfor %}
+            </span>
+            <span class="hp-section-item__type">{{ section.type }}</span>
+          </div>
+          <div class="hp-section-item__actions">
+            <button type="button" class="button button--small button--secondary" onclick="removeSection(this)">Remove</button>
+          </div>
+        </li>
+        {% endfor %}
+      {% else %}
+        <li class="hp-empty">{{ __("homepage.sections.empty") }}</li>
+      {% endif %}
+    </ul>
+
+    <div class="hp-section-picker">
+      <h3>{{ __("homepage.sections.add") }}</h3>
+      <div class="hp-section-picker__grid">
+        {% for source, items in sectionsByPlugin %}
+        <div style="grid-column: 1 / -1; font-weight: bold; margin-top: 0.5rem;">{{ source }}</div>
+        {% for section in items %}
+        <div class="hp-section-picker__item" onclick="addSection('{{ section.id }}', '{{ section.label }}')">
+          {{ section.label }}
+        </div>
+        {% endfor %}
+        {% endfor %}
+      </div>
+    </div>
+
+    {# Hidden input for sections JSON #}
+    <input type="hidden" name="sections" id="sections-json" value='{{ config.sections | dump | safe }}'>
+  </section>
+
+  {# Sidebar Widgets #}
+  <section class="hp-section">
+    <h2>{{ __("homepage.sidebar.title") }}</h2>
+    <p class="hp-section__desc">{{ __("homepage.sidebar.description") }}</p>
+
+    <ul class="hp-sections-list" id="widgets-list">
+      {% if config.sidebar and config.sidebar.length %}
+        {% for widget in config.sidebar %}
+        <li class="hp-section-item" data-type="{{ widget.type }}">
+          <div class="hp-section-item__info">
+            <span class="hp-section-item__name">
+              {% for w in widgets %}{% if w.id == widget.type %}{{ w.label }}{% endif %}{% endfor %}
+            </span>
+            <span class="hp-section-item__type">{{ widget.type }}</span>
+          </div>
+          <div class="hp-section-item__actions">
+            <button type="button" class="button button--small button--secondary" onclick="removeWidget(this)">Remove</button>
+          </div>
+        </li>
+        {% endfor %}
+      {% else %}
+        <li class="hp-empty">{{ __("homepage.sidebar.empty") }}</li>
+      {% endif %}
+    </ul>
+
+    <div class="hp-section-picker">
+      <h3>{{ __("homepage.sidebar.add") }}</h3>
+      <div class="hp-section-picker__grid">
+        {% for widget in widgets %}
+        <div class="hp-section-picker__item" onclick="addWidget('{{ widget.id }}', '{{ widget.label }}')">
+          {{ widget.label }}
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    {# Hidden input for sidebar JSON #}
+    <input type="hidden" name="sidebar" id="sidebar-json" value='{{ config.sidebar | dump | safe }}'>
+  </section>
+
+  {# Save Button #}
+  <div class="button-group">
+    <button type="submit" class="button button--primary">{{ __("homepage.save") }}</button>
+  </div>
+</form>
+
+<script>
+  // Parse current sections and sidebar from hidden inputs
+  let sections = JSON.parse(document.getElementById('sections-json').value || '[]');
+  let sidebar = JSON.parse(document.getElementById('sidebar-json').value || '[]');
+
+  function addSection(id, label) {
+    sections.push({ type: id, config: {} });
+    updateSectionsList();
+  }
+
+  function removeSection(button) {
+    const item = button.closest('.hp-section-item');
+    const type = item.dataset.type;
+    sections = sections.filter(s => s.type !== type);
+    updateSectionsList();
+  }
+
+  function updateSectionsList() {
+    document.getElementById('sections-json').value = JSON.stringify(sections);
+    // Reload to show updated list (simple approach)
+    // In a more sophisticated version, we'd update the DOM directly
+  }
+
+  function addWidget(id, label) {
+    sidebar.push({ type: id, config: {} });
+    updateWidgetsList();
+  }
+
+  function removeWidget(button) {
+    const item = button.closest('.hp-section-item');
+    const type = item.dataset.type;
+    sidebar = sidebar.filter(w => w.type !== type);
+    updateWidgetsList();
+  }
+
+  function updateWidgetsList() {
+    document.getElementById('sidebar-json').value = JSON.stringify(sidebar);
+  }
+
+  // Layout selection
+  document.querySelectorAll('.hp-layout-option').forEach(option => {
+    option.addEventListener('click', () => {
+      document.querySelectorAll('.hp-layout-option').forEach(o => o.classList.remove('selected'));
+      option.classList.add('selected');
+    });
+  });
+
+  // Hero checkboxes - convert to JSON
+  document.querySelector('form').addEventListener('submit', function(e) {
+    const heroEnabled = document.querySelector('input[name="hero[enabled]"]').checked;
+    const heroShowSocial = document.querySelector('input[name="hero[showSocial]"]').checked;
+
+    // Create hidden input with hero JSON
+    const heroInput = document.createElement('input');
+    heroInput.type = 'hidden';
+    heroInput.name = 'hero';
+    heroInput.value = JSON.stringify({ enabled: heroEnabled, showSocial: heroShowSocial });
+    this.appendChild(heroInput);
+
+    // Remove the checkbox inputs
+    document.querySelectorAll('input[name^="hero["]').forEach(i => i.name = '');
+  });
+</script>
+{% endblock %}
