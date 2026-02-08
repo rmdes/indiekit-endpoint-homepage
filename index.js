@@ -138,6 +138,38 @@ export default class HomepageEndpoint {
         defaultConfig: {},
         configSchema: {},
       },
+      {
+        id: "social-activity",
+        label: "Social Activity",
+        description: "Bluesky and Mastodon feeds",
+        icon: "message-circle",
+        defaultConfig: {},
+        configSchema: {},
+      },
+      {
+        id: "github-repos",
+        label: "GitHub Projects",
+        description: "GitHub repositories and activity",
+        icon: "github",
+        defaultConfig: {},
+        configSchema: {},
+      },
+      {
+        id: "funkwhale",
+        label: "Listening",
+        description: "Funkwhale now playing and stats",
+        icon: "music",
+        defaultConfig: {},
+        configSchema: {},
+      },
+      {
+        id: "blogroll",
+        label: "Blogroll",
+        description: "Blog recommendations",
+        icon: "list",
+        defaultConfig: {},
+        configSchema: {},
+      },
     ];
   }
 
