@@ -284,9 +284,66 @@
 </form>
 
 <script>
+  // Label lookup maps for rendering
+  const sectionLabels = {
+    {% for section in sections %}'{{ section.id }}': '{{ section.label }}'{% if not loop.last %}, {% endif %}{% endfor %}
+  };
+  const widgetLabels = {
+    {% for widget in widgets %}'{{ widget.id }}': '{{ widget.label }}'{% if not loop.last %}, {% endif %}{% endfor %}
+  };
+
   // Parse current sections and sidebar from hidden inputs
   let sections = JSON.parse(document.getElementById('sections-json').value || '[]');
   let sidebar = JSON.parse(document.getElementById('sidebar-json').value || '[]');
+
+  function createItemElement(type, labels, removeFn) {
+    const li = document.createElement('li');
+    li.className = 'hp-section-item';
+    li.dataset.type = type;
+
+    const info = document.createElement('div');
+    info.className = 'hp-section-item__info';
+
+    const name = document.createElement('span');
+    name.className = 'hp-section-item__name';
+    name.textContent = labels[type] || type;
+
+    const typeSpan = document.createElement('span');
+    typeSpan.className = 'hp-section-item__type';
+    typeSpan.textContent = type;
+
+    info.appendChild(name);
+    info.appendChild(typeSpan);
+
+    const actions = document.createElement('div');
+    actions.className = 'hp-section-item__actions';
+
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'button button--small button--secondary';
+    btn.textContent = 'Remove';
+    btn.addEventListener('click', function() { removeFn(this); });
+
+    actions.appendChild(btn);
+    li.appendChild(info);
+    li.appendChild(actions);
+
+    return li;
+  }
+
+  function renderList(listEl, items, labels, removeFn, emptyText) {
+    listEl.textContent = '';
+    if (items.length === 0) {
+      const li = document.createElement('li');
+      li.className = 'hp-empty';
+      li.textContent = emptyText;
+      listEl.appendChild(li);
+    } else {
+      items.forEach(function(item) {
+        listEl.appendChild(createItemElement(item.type, labels, removeFn));
+      });
+    }
+  }
 
   function addSection(id, label) {
     sections.push({ type: id, config: {} });
@@ -296,14 +353,17 @@
   function removeSection(button) {
     const item = button.closest('.hp-section-item');
     const type = item.dataset.type;
-    sections = sections.filter(s => s.type !== type);
+    sections = sections.filter(function(s) { return s.type !== type; });
     updateSectionsList();
   }
 
   function updateSectionsList() {
     document.getElementById('sections-json').value = JSON.stringify(sections);
-    // Reload to show updated list (simple approach)
-    // In a more sophisticated version, we'd update the DOM directly
+    renderList(
+      document.getElementById('sections-list'),
+      sections, sectionLabels, removeSection,
+      '{{ __("homepage.sections.empty") }}'
+    );
   }
 
   function addWidget(id, label) {
@@ -314,36 +374,39 @@
   function removeWidget(button) {
     const item = button.closest('.hp-section-item');
     const type = item.dataset.type;
-    sidebar = sidebar.filter(w => w.type !== type);
+    sidebar = sidebar.filter(function(w) { return w.type !== type; });
     updateWidgetsList();
   }
 
   function updateWidgetsList() {
     document.getElementById('sidebar-json').value = JSON.stringify(sidebar);
+    renderList(
+      document.getElementById('widgets-list'),
+      sidebar, widgetLabels, removeWidget,
+      '{{ __("homepage.sidebar.empty") }}'
+    );
   }
 
   // Layout selection
-  document.querySelectorAll('.hp-layout-option').forEach(option => {
-    option.addEventListener('click', () => {
-      document.querySelectorAll('.hp-layout-option').forEach(o => o.classList.remove('selected'));
+  document.querySelectorAll('.hp-layout-option').forEach(function(option) {
+    option.addEventListener('click', function() {
+      document.querySelectorAll('.hp-layout-option').forEach(function(o) { o.classList.remove('selected'); });
       option.classList.add('selected');
     });
   });
 
-  // Hero checkboxes - convert to JSON
+  // Hero checkboxes - convert to JSON on submit
   document.querySelector('form').addEventListener('submit', function(e) {
     const heroEnabled = document.querySelector('input[name="hero[enabled]"]').checked;
     const heroShowSocial = document.querySelector('input[name="hero[showSocial]"]').checked;
 
-    // Create hidden input with hero JSON
     const heroInput = document.createElement('input');
     heroInput.type = 'hidden';
     heroInput.name = 'hero';
     heroInput.value = JSON.stringify({ enabled: heroEnabled, showSocial: heroShowSocial });
     this.appendChild(heroInput);
 
-    // Remove the checkbox inputs
-    document.querySelectorAll('input[name^="hero["]').forEach(i => i.name = '');
+    document.querySelectorAll('input[name^="hero["]').forEach(function(i) { i.name = ''; });
   });
 </script>
 {% endblock %}
