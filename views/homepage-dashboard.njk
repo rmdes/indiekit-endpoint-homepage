@@ -94,6 +94,27 @@
     gap: var(--space-2xs, 0.25rem);
   }
 
+  .hp-section-item__drag {
+    cursor: grab;
+    color: var(--color-on-offset, #999);
+    padding: 0 0.25rem;
+    display: flex;
+    align-items: center;
+  }
+
+  .hp-section-item__drag:active {
+    cursor: grabbing;
+  }
+
+  .hp-section-item.sortable-ghost {
+    opacity: 0.4;
+    background: var(--color-primary-container, #e6f0ff);
+  }
+
+  .hp-section-item.sortable-chosen {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+
   .hp-section-picker {
     margin-block-start: var(--space-m, 1rem);
     padding: var(--space-s, 0.75rem);
@@ -301,6 +322,19 @@
     li.className = 'hp-section-item';
     li.dataset.type = type;
 
+    const drag = document.createElement('span');
+    drag.className = 'hp-section-item__drag drag-handle';
+    drag.title = 'Drag to reorder';
+    var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('width', '16');
+    svg.setAttribute('height', '16');
+    svg.setAttribute('viewBox', '0 0 24 24');
+    svg.setAttribute('fill', 'currentColor');
+    var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('d', 'M8 6a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm8-16a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4z');
+    svg.appendChild(path);
+    drag.appendChild(svg);
+
     const info = document.createElement('div');
     info.className = 'hp-section-item__info';
 
@@ -325,6 +359,7 @@
     btn.addEventListener('click', function() { removeFn(this); });
 
     actions.appendChild(btn);
+    li.appendChild(drag);
     li.appendChild(info);
     li.appendChild(actions);
 
@@ -364,6 +399,7 @@
       sections, sectionLabels, removeSection,
       '{{ __("homepage.sections.empty") }}'
     );
+    initSortable();
   }
 
   function addWidget(id, label) {
@@ -385,6 +421,7 @@
       sidebar, widgetLabels, removeWidget,
       '{{ __("homepage.sidebar.empty") }}'
     );
+    initSortable();
   }
 
   // Layout selection
@@ -408,5 +445,51 @@
 
     document.querySelectorAll('input[name^="hero["]').forEach(function(i) { i.name = ''; });
   });
+
+  // Sync data arrays from DOM order after drag
+  function syncSectionsFromDom() {
+    var items = document.getElementById('sections-list').querySelectorAll('.hp-section-item');
+    sections = [];
+    items.forEach(function(item) {
+      sections.push({ type: item.dataset.type, config: {} });
+    });
+    document.getElementById('sections-json').value = JSON.stringify(sections);
+  }
+
+  function syncSidebarFromDom() {
+    var items = document.getElementById('widgets-list').querySelectorAll('.hp-section-item');
+    sidebar = [];
+    items.forEach(function(item) {
+      sidebar.push({ type: item.dataset.type, config: {} });
+    });
+    document.getElementById('sidebar-json').value = JSON.stringify(sidebar);
+  }
+
+  // Initialize SortableJS when loaded
+  function initSortable() {
+    if (typeof Sortable === 'undefined') return;
+
+    new Sortable(document.getElementById('sections-list'), {
+      handle: '.drag-handle',
+      animation: 150,
+      ghostClass: 'sortable-ghost',
+      chosenClass: 'sortable-chosen',
+      onEnd: syncSectionsFromDom
+    });
+
+    new Sortable(document.getElementById('widgets-list'), {
+      handle: '.drag-handle',
+      animation: 150,
+      ghostClass: 'sortable-ghost',
+      chosenClass: 'sortable-chosen',
+      onEnd: syncSidebarFromDom
+    });
+  }
+
+  // Load SortableJS from CDN
+  var sortableScript = document.createElement('script');
+  sortableScript.src = 'https://cdn.jsdelivr.net/npm/sortablejs@1.15.6/Sortable.min.js';
+  sortableScript.onload = initSortable;
+  document.head.appendChild(sortableScript);
 </script>
 {% endblock %}
