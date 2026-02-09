@@ -1,7 +1,7 @@
 {
   "homepage": {
     "title": "Homepage Builder",
-    "description": "Configure your homepage layout, sections, and sidebar widgets.",
+    "description": "Configure your homepage layout, sections, sidebar widgets, and footer.",
     "saved": "Configuration saved successfully. Refresh your homepage to see changes.",
     "save": "Save Configuration",
     "layout": {
@@ -17,7 +17,7 @@
     },
     "sections": {
       "title": "Content Sections",
-      "description": "Add and arrange sections that appear on your homepage.",
+      "description": "Add and arrange sections that appear in the main content area.",
       "add": "Add Section",
       "empty": "No sections configured. Add sections from the picker below."
     },
@@ -26,6 +26,19 @@
       "description": "Configure widgets that appear in the sidebar (only visible with two-column layout).",
       "add": "Add Widget",
       "empty": "No widgets configured. Add widgets from the picker below."
+    },
+    "footer": {
+      "title": "Footer",
+      "description": "Content that appears below the main area — ideal for webrings, links, or custom blocks.",
+      "add": "Add Footer Block",
+      "empty": "No footer blocks configured."
+    },
+    "customContent": {
+      "editTitle": "Edit Custom Content",
+      "titleLabel": "Title (optional)",
+      "contentLabel": "Content (HTML or text)",
+      "save": "Apply",
+      "cancel": "Cancel"
     }
   }
 }

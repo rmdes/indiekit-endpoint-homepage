@@ -21,6 +21,12 @@
     border-block-end: 1px solid var(--color-outline-variant, #ddd);
   }
 
+  .hp-section__desc {
+    color: var(--color-on-offset, #666);
+    font: var(--font-body, 0.875rem/1.5 sans-serif);
+    margin-block-end: var(--space-s, 0.75rem);
+  }
+
   .hp-layout-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -76,6 +82,12 @@
     gap: var(--space-s, 0.75rem);
   }
 
+  .hp-section-item--has-edit {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    margin-block-end: 0;
+  }
+
   .hp-section-item__info {
     flex: 1;
   }
@@ -89,9 +101,20 @@
     font: var(--font-caption, 0.75rem/1.4 sans-serif);
   }
 
+  .hp-section-item__preview {
+    color: var(--color-on-offset, #888);
+    font: var(--font-caption, 0.75rem/1.4 sans-serif);
+    margin-block-start: 0.125rem;
+    max-width: 40ch;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
   .hp-section-item__actions {
     display: flex;
     gap: var(--space-2xs, 0.25rem);
+    flex-shrink: 0;
   }
 
   .hp-section-item__drag {
@@ -113,6 +136,51 @@
 
   .hp-section-item.sortable-chosen {
     box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+
+  .hp-edit-panel {
+    background: var(--color-background, #fff);
+    border: 1px solid var(--color-primary, #0066cc);
+    border-top: none;
+    border-radius: 0 0 var(--border-radius-small, 0.25rem) var(--border-radius-small, 0.25rem);
+    padding: var(--space-s, 0.75rem);
+    margin-block-end: var(--space-xs, 0.5rem);
+  }
+
+  .hp-edit-panel summary { display: none; }
+
+  .hp-edit-panel .field {
+    margin-block-end: var(--space-xs, 0.5rem);
+  }
+
+  .hp-edit-panel .field__label {
+    display: block;
+    font: var(--font-caption, 0.75rem/1.4 sans-serif);
+    font-weight: 600;
+    margin-block-end: 0.25rem;
+  }
+
+  .hp-edit-panel .field__input {
+    width: 100%;
+    padding: var(--space-2xs, 0.375rem) var(--space-xs, 0.5rem);
+    border: 1px solid var(--color-outline-variant, #ccc);
+    border-radius: var(--border-radius-small, 0.25rem);
+    font: var(--font-body, 0.875rem/1.5 sans-serif);
+    background: var(--color-background, #fff);
+    color: var(--color-on-surface, inherit);
+  }
+
+  .hp-edit-panel textarea.field__input {
+    resize: vertical;
+    min-height: 6rem;
+    font-family: monospace;
+    font-size: 0.8125rem;
+  }
+
+  .hp-edit-panel__buttons {
+    display: flex;
+    gap: 0.5rem;
+    margin-block-start: var(--space-xs, 0.5rem);
   }
 
   .hp-section-picker {
@@ -149,6 +217,14 @@
     border-color: var(--color-primary, #0066cc);
   }
 
+  .hp-section-picker__heading {
+    grid-column: 1 / -1;
+    font-weight: bold;
+    margin-top: 0.5rem;
+    font: var(--font-caption, 0.8rem/1.4 sans-serif);
+    color: var(--color-on-offset, #555);
+  }
+
   .hp-empty {
     color: var(--color-on-offset, #666);
     font: var(--font-caption, 0.875rem/1.4 sans-serif);
@@ -176,7 +252,7 @@
 </div>
 {% endif %}
 
-<form method="post" action="{{ homepageEndpoint }}/save" class="hp-dashboard">
+<form method="post" action="{{ homepageEndpoint }}/save" class="hp-dashboard" id="hp-form">
   {# Layout Selection #}
   <section class="hp-section">
     <h2>{{ __("homepage.layout.title") }}</h2>
@@ -184,7 +260,6 @@
       {% for layout in layouts %}
       <label class="hp-layout-option {% if config.layout == layout.id %}selected{% endif %}">
         <input type="radio" name="layout" value="{{ layout.id }}" {% if config.layout == layout.id %}checked{% endif %}>
-        {# Simple layout previews #}
         {% if layout.id == "single-column" %}
         <svg viewBox="0 0 80 60"><rect x="10" y="5" width="60" height="50" fill="#ddd" stroke="#999"/></svg>
         {% elif layout.id == "two-column" %}
@@ -215,38 +290,20 @@
     </div>
   </section>
 
-  {# Sections #}
+  {# Content Sections #}
   <section class="hp-section">
     <h2>{{ __("homepage.sections.title") }}</h2>
     <p class="hp-section__desc">{{ __("homepage.sections.description") }}</p>
 
-    <ul class="hp-sections-list" id="sections-list">
-      {% if config.sections and config.sections.length %}
-        {% for section in config.sections %}
-        <li class="hp-section-item" data-type="{{ section.type }}">
-          <div class="hp-section-item__info">
-            <span class="hp-section-item__name">
-              {% for s in sections %}{% if s.id == section.type %}{{ s.label }}{% endif %}{% endfor %}
-            </span>
-            <span class="hp-section-item__type">{{ section.type }}</span>
-          </div>
-          <div class="hp-section-item__actions">
-            <button type="button" class="button button--small button--secondary" onclick="removeSection(this)">Remove</button>
-          </div>
-        </li>
-        {% endfor %}
-      {% else %}
-        <li class="hp-empty">{{ __("homepage.sections.empty") }}</li>
-      {% endif %}
-    </ul>
+    <ul class="hp-sections-list" id="sections-list"></ul>
 
     <div class="hp-section-picker">
       <h3>{{ __("homepage.sections.add") }}</h3>
       <div class="hp-section-picker__grid">
         {% for source, items in sectionsByPlugin %}
-        <div style="grid-column: 1 / -1; font-weight: bold; margin-top: 0.5rem;">{{ source }}</div>
+        <div class="hp-section-picker__heading">{{ source }}</div>
         {% for section in items %}
-        <div class="hp-section-picker__item" onclick="addSection('{{ section.id }}', '{{ section.label }}')">
+        <div class="hp-section-picker__item" data-add-section="{{ section.id }}">
           {{ section.label }}
         </div>
         {% endfor %}
@@ -254,7 +311,6 @@
       </div>
     </div>
 
-    {# Hidden input for sections JSON #}
     <input type="hidden" name="sections" id="sections-json" value='{{ config.sections | dump | safe }}'>
   </section>
 
@@ -263,39 +319,45 @@
     <h2>{{ __("homepage.sidebar.title") }}</h2>
     <p class="hp-section__desc">{{ __("homepage.sidebar.description") }}</p>
 
-    <ul class="hp-sections-list" id="widgets-list">
-      {% if config.sidebar and config.sidebar.length %}
-        {% for widget in config.sidebar %}
-        <li class="hp-section-item" data-type="{{ widget.type }}">
-          <div class="hp-section-item__info">
-            <span class="hp-section-item__name">
-              {% for w in widgets %}{% if w.id == widget.type %}{{ w.label }}{% endif %}{% endfor %}
-            </span>
-            <span class="hp-section-item__type">{{ widget.type }}</span>
-          </div>
-          <div class="hp-section-item__actions">
-            <button type="button" class="button button--small button--secondary" onclick="removeWidget(this)">Remove</button>
-          </div>
-        </li>
-        {% endfor %}
-      {% else %}
-        <li class="hp-empty">{{ __("homepage.sidebar.empty") }}</li>
-      {% endif %}
-    </ul>
+    <ul class="hp-sections-list" id="widgets-list"></ul>
 
     <div class="hp-section-picker">
       <h3>{{ __("homepage.sidebar.add") }}</h3>
       <div class="hp-section-picker__grid">
         {% for widget in widgets %}
-        <div class="hp-section-picker__item" onclick="addWidget('{{ widget.id }}', '{{ widget.label }}')">
+        <div class="hp-section-picker__item" data-add-widget="{{ widget.id }}">
           {{ widget.label }}
         </div>
         {% endfor %}
       </div>
     </div>
 
-    {# Hidden input for sidebar JSON #}
     <input type="hidden" name="sidebar" id="sidebar-json" value='{{ config.sidebar | dump | safe }}'>
+  </section>
+
+  {# Footer #}
+  <section class="hp-section">
+    <h2>{{ __("homepage.footer.title") }}</h2>
+    <p class="hp-section__desc">{{ __("homepage.footer.description") }}</p>
+
+    <ul class="hp-sections-list" id="footer-list"></ul>
+
+    <div class="hp-section-picker">
+      <h3>{{ __("homepage.footer.add") }}</h3>
+      <div class="hp-section-picker__grid">
+        {# Footer accepts same section types + custom-html #}
+        {% for source, items in sectionsByPlugin %}
+        <div class="hp-section-picker__heading">{{ source }}</div>
+        {% for section in items %}
+        <div class="hp-section-picker__item" data-add-footer="{{ section.id }}">
+          {{ section.label }}
+        </div>
+        {% endfor %}
+        {% endfor %}
+      </div>
+    </div>
+
+    <input type="hidden" name="footer" id="footer-json" value='{{ config.footer | dump | safe }}'>
   </section>
 
   {# Save Button #}
@@ -305,24 +367,42 @@
 </form>
 
 <script>
-  // Label lookup maps for rendering
-  const sectionLabels = {
+  // Label lookup maps
+  var sectionLabels = {
     {% for section in sections %}'{{ section.id }}': '{{ section.label }}'{% if not loop.last %}, {% endif %}{% endfor %}
   };
-  const widgetLabels = {
+  var widgetLabels = {
     {% for widget in widgets %}'{{ widget.id }}': '{{ widget.label }}'{% if not loop.last %}, {% endif %}{% endfor %}
   };
+  // Merge so all label maps cover all types
+  var allLabels = Object.assign({}, sectionLabels, widgetLabels);
 
-  // Parse current sections and sidebar from hidden inputs
-  let sections = JSON.parse(document.getElementById('sections-json').value || '[]');
-  let sidebar = JSON.parse(document.getElementById('sidebar-json').value || '[]');
+  // Unique key counter for tracking items
+  var nextKey = 0;
 
-  function createItemElement(type, labels, removeFn) {
-    const li = document.createElement('li');
-    li.className = 'hp-section-item';
-    li.dataset.type = type;
+  // Parse current data from hidden inputs and assign keys
+  var sections = JSON.parse(document.getElementById('sections-json').value || '[]');
+  var sidebar = JSON.parse(document.getElementById('sidebar-json').value || '[]');
+  var footer = JSON.parse(document.getElementById('footer-json').value || '[]');
 
-    const drag = document.createElement('span');
+  sections.forEach(function(s) { s._key = nextKey++; });
+  sidebar.forEach(function(s) { s._key = nextKey++; });
+  footer.forEach(function(s) { s._key = nextKey++; });
+
+  // Strip _key before form submission
+  function stripKeys(items) {
+    return items.map(function(item) {
+      var copy = {};
+      for (var k in item) {
+        if (k !== '_key') copy[k] = item[k];
+      }
+      return copy;
+    });
+  }
+
+  // Create drag handle SVG
+  function createDragHandle() {
+    var drag = document.createElement('span');
     drag.className = 'hp-section-item__drag drag-handle';
     drag.title = 'Drag to reorder';
     var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
@@ -334,97 +414,283 @@
     path.setAttribute('d', 'M8 6a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm8-16a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4z');
     svg.appendChild(path);
     drag.appendChild(svg);
-
-    const info = document.createElement('div');
-    info.className = 'hp-section-item__info';
-
-    const name = document.createElement('span');
-    name.className = 'hp-section-item__name';
-    name.textContent = labels[type] || type;
-
-    const typeSpan = document.createElement('span');
-    typeSpan.className = 'hp-section-item__type';
-    typeSpan.textContent = type;
-
-    info.appendChild(name);
-    info.appendChild(typeSpan);
-
-    const actions = document.createElement('div');
-    actions.className = 'hp-section-item__actions';
-
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'button button--small button--secondary';
-    btn.textContent = 'Remove';
-    btn.addEventListener('click', function() { removeFn(this); });
-
-    actions.appendChild(btn);
-    li.appendChild(drag);
-    li.appendChild(info);
-    li.appendChild(actions);
-
-    return li;
+    return drag;
   }
 
-  function renderList(listEl, items, labels, removeFn, emptyText) {
+  // Create a list item element for a section/widget/footer item
+  function createItemElement(item, labels, removeFn, editFn) {
+    var isCustom = (item.type === 'custom-html');
+    var container = document.createDocumentFragment();
+
+    var li = document.createElement('li');
+    li.className = 'hp-section-item' + (isCustom ? ' hp-section-item--has-edit' : '');
+    li.dataset.key = item._key;
+    li.dataset.type = item.type;
+
+    li.appendChild(createDragHandle());
+
+    var info = document.createElement('div');
+    info.className = 'hp-section-item__info';
+
+    var name = document.createElement('span');
+    name.className = 'hp-section-item__name';
+    name.textContent = labels[item.type] || item.type;
+    info.appendChild(name);
+
+    var typeSpan = document.createElement('span');
+    typeSpan.className = 'hp-section-item__type';
+    typeSpan.textContent = ' ' + item.type;
+    info.appendChild(typeSpan);
+
+    // Show content preview for custom-html
+    if (isCustom && item.config && item.config.content) {
+      var preview = document.createElement('div');
+      preview.className = 'hp-section-item__preview';
+      var previewText = item.config.title ? item.config.title + ': ' : '';
+      previewText += item.config.content.replace(/<[^>]*>/g, '').substring(0, 60);
+      preview.textContent = previewText;
+      info.appendChild(preview);
+    }
+
+    li.appendChild(info);
+
+    var actions = document.createElement('div');
+    actions.className = 'hp-section-item__actions';
+
+    if (isCustom) {
+      var editBtn = document.createElement('button');
+      editBtn.type = 'button';
+      editBtn.className = 'button button--small';
+      editBtn.textContent = 'Edit';
+      editBtn.addEventListener('click', function() {
+        var panel = li.nextElementSibling;
+        if (panel && panel.tagName === 'DETAILS') {
+          panel.open = !panel.open;
+        }
+      });
+      actions.appendChild(editBtn);
+    }
+
+    var removeBtn = document.createElement('button');
+    removeBtn.type = 'button';
+    removeBtn.className = 'button button--small button--secondary';
+    removeBtn.textContent = 'Remove';
+    removeBtn.addEventListener('click', function() { removeFn(item._key); });
+    actions.appendChild(removeBtn);
+
+    li.appendChild(actions);
+    container.appendChild(li);
+
+    // Add edit panel for custom-html
+    if (isCustom) {
+      var details = document.createElement('details');
+      details.className = 'hp-edit-panel';
+
+      var summary = document.createElement('summary');
+      details.appendChild(summary);
+
+      var titleField = document.createElement('div');
+      titleField.className = 'field';
+      var titleLabel = document.createElement('label');
+      titleLabel.className = 'field__label';
+      titleLabel.textContent = '{{ __("homepage.customContent.titleLabel") }}';
+      var titleInput = document.createElement('input');
+      titleInput.className = 'field__input';
+      titleInput.type = 'text';
+      titleInput.placeholder = 'e.g. Webring, Links';
+      titleInput.value = (item.config && item.config.title) || '';
+      titleField.appendChild(titleLabel);
+      titleField.appendChild(titleInput);
+      details.appendChild(titleField);
+
+      var contentField = document.createElement('div');
+      contentField.className = 'field';
+      var contentLabel = document.createElement('label');
+      contentLabel.className = 'field__label';
+      contentLabel.textContent = '{{ __("homepage.customContent.contentLabel") }}';
+      var contentInput = document.createElement('textarea');
+      contentInput.className = 'field__input';
+      contentInput.rows = 6;
+      contentInput.placeholder = '<p>Your HTML here...</p>';
+      contentInput.value = (item.config && item.config.content) || '';
+      contentField.appendChild(contentLabel);
+      contentField.appendChild(contentInput);
+      details.appendChild(contentField);
+
+      var buttons = document.createElement('div');
+      buttons.className = 'hp-edit-panel__buttons';
+
+      var saveBtn = document.createElement('button');
+      saveBtn.type = 'button';
+      saveBtn.className = 'button button--primary button--small';
+      saveBtn.textContent = '{{ __("homepage.customContent.save") }}';
+      saveBtn.addEventListener('click', function() {
+        editFn(item._key, {
+          title: titleInput.value,
+          content: contentInput.value
+        });
+        details.open = false;
+      });
+
+      var cancelBtn = document.createElement('button');
+      cancelBtn.type = 'button';
+      cancelBtn.className = 'button button--small button--secondary';
+      cancelBtn.textContent = '{{ __("homepage.customContent.cancel") }}';
+      cancelBtn.addEventListener('click', function() { details.open = false; });
+
+      buttons.appendChild(saveBtn);
+      buttons.appendChild(cancelBtn);
+      details.appendChild(buttons);
+
+      container.appendChild(details);
+    }
+
+    return container;
+  }
+
+  // Render a list of items into a UL element
+  function renderList(listEl, items, labels, removeFn, editFn, emptyText) {
     listEl.textContent = '';
     if (items.length === 0) {
-      const li = document.createElement('li');
+      var li = document.createElement('li');
       li.className = 'hp-empty';
       li.textContent = emptyText;
       listEl.appendChild(li);
     } else {
       items.forEach(function(item) {
-        listEl.appendChild(createItemElement(item.type, labels, removeFn));
+        listEl.appendChild(createItemElement(item, labels, removeFn, editFn));
       });
     }
   }
 
-  function addSection(id, label) {
-    sections.push({ type: id, config: {} });
-    updateSectionsList();
+  // --- Sections ---
+  function addSection(id) {
+    var item = { type: id, config: {}, _key: nextKey++ };
+    sections.push(item);
+    updateSections();
+    // Auto-open edit panel for custom-html
+    if (id === 'custom-html') {
+      var list = document.getElementById('sections-list');
+      var lastPanel = list.querySelector('details.hp-edit-panel:last-of-type');
+      if (lastPanel) lastPanel.open = true;
+    }
   }
 
-  function removeSection(button) {
-    const item = button.closest('.hp-section-item');
-    const type = item.dataset.type;
-    sections = sections.filter(function(s) { return s.type !== type; });
-    updateSectionsList();
+  function removeSection(key) {
+    sections = sections.filter(function(s) { return s._key !== key; });
+    updateSections();
   }
 
-  function updateSectionsList() {
-    document.getElementById('sections-json').value = JSON.stringify(sections);
+  function editSection(key, config) {
+    var item = sections.find(function(s) { return s._key === key; });
+    if (item) item.config = config;
+    updateSections();
+  }
+
+  function updateSections() {
+    document.getElementById('sections-json').value = JSON.stringify(stripKeys(sections));
     renderList(
       document.getElementById('sections-list'),
-      sections, sectionLabels, removeSection,
+      sections, allLabels, removeSection, editSection,
       '{{ __("homepage.sections.empty") }}'
     );
     initSortable();
   }
 
-  function addWidget(id, label) {
-    sidebar.push({ type: id, config: {} });
-    updateWidgetsList();
+  // --- Sidebar ---
+  function addWidget(id) {
+    var item = { type: id, config: {}, _key: nextKey++ };
+    sidebar.push(item);
+    updateWidgets();
+    if (id === 'custom-html') {
+      var list = document.getElementById('widgets-list');
+      var lastPanel = list.querySelector('details.hp-edit-panel:last-of-type');
+      if (lastPanel) lastPanel.open = true;
+    }
   }
 
-  function removeWidget(button) {
-    const item = button.closest('.hp-section-item');
-    const type = item.dataset.type;
-    sidebar = sidebar.filter(function(w) { return w.type !== type; });
-    updateWidgetsList();
+  function removeWidget(key) {
+    sidebar = sidebar.filter(function(w) { return w._key !== key; });
+    updateWidgets();
   }
 
-  function updateWidgetsList() {
-    document.getElementById('sidebar-json').value = JSON.stringify(sidebar);
+  function editWidget(key, config) {
+    var item = sidebar.find(function(s) { return s._key === key; });
+    if (item) item.config = config;
+    updateWidgets();
+  }
+
+  function updateWidgets() {
+    document.getElementById('sidebar-json').value = JSON.stringify(stripKeys(sidebar));
     renderList(
       document.getElementById('widgets-list'),
-      sidebar, widgetLabels, removeWidget,
+      sidebar, allLabels, removeWidget, editWidget,
       '{{ __("homepage.sidebar.empty") }}'
     );
     initSortable();
   }
 
-  // Layout selection
+  // --- Footer ---
+  function addFooter(id) {
+    var item = { type: id, config: {}, _key: nextKey++ };
+    footer.push(item);
+    updateFooter();
+    if (id === 'custom-html') {
+      var list = document.getElementById('footer-list');
+      var lastPanel = list.querySelector('details.hp-edit-panel:last-of-type');
+      if (lastPanel) lastPanel.open = true;
+    }
+  }
+
+  function removeFooter(key) {
+    footer = footer.filter(function(f) { return f._key !== key; });
+    updateFooter();
+  }
+
+  function editFooter(key, config) {
+    var item = footer.find(function(s) { return s._key === key; });
+    if (item) item.config = config;
+    updateFooter();
+  }
+
+  function updateFooter() {
+    document.getElementById('footer-json').value = JSON.stringify(stripKeys(footer));
+    renderList(
+      document.getElementById('footer-list'),
+      footer, allLabels, removeFooter, editFooter,
+      '{{ __("homepage.footer.empty") }}'
+    );
+    initSortable();
+  }
+
+  // --- Sync after drag (preserves config by reordering JS array) ---
+  function syncFromDom(listEl, dataArray) {
+    var items = listEl.querySelectorAll('.hp-section-item');
+    var ordered = [];
+    items.forEach(function(el) {
+      var key = parseInt(el.dataset.key, 10);
+      var item = dataArray.find(function(s) { return s._key === key; });
+      if (item) ordered.push(item);
+    });
+    return ordered;
+  }
+
+  function syncSectionsFromDom() {
+    sections = syncFromDom(document.getElementById('sections-list'), sections);
+    document.getElementById('sections-json').value = JSON.stringify(stripKeys(sections));
+  }
+
+  function syncSidebarFromDom() {
+    sidebar = syncFromDom(document.getElementById('widgets-list'), sidebar);
+    document.getElementById('sidebar-json').value = JSON.stringify(stripKeys(sidebar));
+  }
+
+  function syncFooterFromDom() {
+    footer = syncFromDom(document.getElementById('footer-list'), footer);
+    document.getElementById('footer-json').value = JSON.stringify(stripKeys(footer));
+  }
+
+  // --- Layout selection ---
   document.querySelectorAll('.hp-layout-option').forEach(function(option) {
     option.addEventListener('click', function() {
       document.querySelectorAll('.hp-layout-option').forEach(function(o) { o.classList.remove('selected'); });
@@ -432,12 +698,23 @@
     });
   });
 
-  // Hero checkboxes - convert to JSON on submit
-  document.querySelector('form').addEventListener('submit', function(e) {
-    const heroEnabled = document.querySelector('input[name="hero[enabled]"]').checked;
-    const heroShowSocial = document.querySelector('input[name="hero[showSocial]"]').checked;
+  // --- Section picker event delegation ---
+  document.querySelectorAll('[data-add-section]').forEach(function(el) {
+    el.addEventListener('click', function() { addSection(el.dataset.addSection); });
+  });
+  document.querySelectorAll('[data-add-widget]').forEach(function(el) {
+    el.addEventListener('click', function() { addWidget(el.dataset.addWidget); });
+  });
+  document.querySelectorAll('[data-add-footer]').forEach(function(el) {
+    el.addEventListener('click', function() { addFooter(el.dataset.addFooter); });
+  });
 
-    const heroInput = document.createElement('input');
+  // --- Hero checkboxes → JSON on submit ---
+  document.getElementById('hp-form').addEventListener('submit', function(e) {
+    var heroEnabled = document.querySelector('input[name="hero[enabled]"]').checked;
+    var heroShowSocial = document.querySelector('input[name="hero[showSocial]"]').checked;
+
+    var heroInput = document.createElement('input');
     heroInput.type = 'hidden';
     heroInput.name = 'hero';
     heroInput.value = JSON.stringify({ enabled: heroEnabled, showSocial: heroShowSocial });
@@ -446,50 +723,43 @@
     document.querySelectorAll('input[name^="hero["]').forEach(function(i) { i.name = ''; });
   });
 
-  // Sync data arrays from DOM order after drag
-  function syncSectionsFromDom() {
-    var items = document.getElementById('sections-list').querySelectorAll('.hp-section-item');
-    sections = [];
-    items.forEach(function(item) {
-      sections.push({ type: item.dataset.type, config: {} });
-    });
-    document.getElementById('sections-json').value = JSON.stringify(sections);
-  }
-
-  function syncSidebarFromDom() {
-    var items = document.getElementById('widgets-list').querySelectorAll('.hp-section-item');
-    sidebar = [];
-    items.forEach(function(item) {
-      sidebar.push({ type: item.dataset.type, config: {} });
-    });
-    document.getElementById('sidebar-json').value = JSON.stringify(sidebar);
-  }
-
-  // Initialize SortableJS when loaded
+  // --- SortableJS ---
   function initSortable() {
     if (typeof Sortable === 'undefined') return;
 
-    new Sortable(document.getElementById('sections-list'), {
-      handle: '.drag-handle',
-      animation: 150,
-      ghostClass: 'sortable-ghost',
-      chosenClass: 'sortable-chosen',
-      onEnd: syncSectionsFromDom
-    });
+    var lists = [
+      { el: 'sections-list', sync: syncSectionsFromDom },
+      { el: 'widgets-list', sync: syncSidebarFromDom },
+      { el: 'footer-list', sync: syncFooterFromDom }
+    ];
 
-    new Sortable(document.getElementById('widgets-list'), {
-      handle: '.drag-handle',
-      animation: 150,
-      ghostClass: 'sortable-ghost',
-      chosenClass: 'sortable-chosen',
-      onEnd: syncSidebarFromDom
+    lists.forEach(function(cfg) {
+      var el = document.getElementById(cfg.el);
+      if (!el) return;
+      // Destroy existing Sortable if any
+      if (el._sortable) el._sortable.destroy();
+      el._sortable = new Sortable(el, {
+        handle: '.drag-handle',
+        animation: 150,
+        ghostClass: 'sortable-ghost',
+        chosenClass: 'sortable-chosen',
+        draggable: '.hp-section-item',
+        onEnd: cfg.sync
+      });
     });
   }
 
   // Load SortableJS from CDN
   var sortableScript = document.createElement('script');
   sortableScript.src = 'https://cdn.jsdelivr.net/npm/sortablejs@1.15.6/Sortable.min.js';
-  sortableScript.onload = initSortable;
+  sortableScript.onload = function() {
+    initSortable();
+  };
   document.head.appendChild(sortableScript);
+
+  // --- Initial render ---
+  updateSections();
+  updateWidgets();
+  updateFooter();
 </script>
 {% endblock %}

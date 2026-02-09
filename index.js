@@ -170,6 +170,20 @@ export default class HomepageEndpoint {
         defaultConfig: {},
         configSchema: {},
       },
+      {
+        id: "custom-html",
+        label: "Custom Content",
+        description: "Freeform HTML or text block",
+        icon: "code",
+        defaultConfig: {
+          title: "",
+          content: "",
+        },
+        configSchema: {
+          title: { type: "text", label: "Title (optional)" },
+          content: { type: "textarea", label: "Content (HTML)" },
+        },
+      },
     ];
   }
 
@@ -227,8 +241,10 @@ export default class HomepageEndpoint {
     // Store reference to Indiekit for plugin discovery
     Indiekit.config.application.indiekitInstance = Indiekit;
 
-    // Discover sections and widgets from other plugins
-    this._discoverPluginSections(Indiekit);
+    // Defer discovery until after all plugins have called init()
+    // (process.nextTick runs after the synchronous plugin loading loop)
+    const self = this;
+    process.nextTick(() => self._discoverPluginSections(Indiekit));
   }
 
   /**
