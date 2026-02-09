@@ -28,10 +28,11 @@
       "empty": "No widgets configured. Add widgets from the picker below."
     },
     "footer": {
-      "title": "Footer",
-      "description": "Content that appears below the main area — ideal for webrings, links, or custom blocks.",
-      "add": "Add Footer Block",
-      "empty": "No footer blocks configured."
+      "title": "Footer (3-column)",
+      "description": "A responsive 3-column area below the main content — add up to 3 blocks (one per column). Ideal for webrings, links, or custom content.",
+      "add": "Add Footer Column",
+      "empty": "No footer columns configured.",
+      "full": "All 3 footer columns are filled."
     },
     "customContent": {
       "editTitle": "Edit Custom Content",

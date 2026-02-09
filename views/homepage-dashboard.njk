@@ -342,7 +342,7 @@
 
     <ul class="hp-sections-list" id="footer-list"></ul>
 
-    <div class="hp-section-picker">
+    <div class="hp-section-picker" id="footer-picker">
       <h3>{{ __("homepage.footer.add") }}</h3>
       <div class="hp-section-picker__grid">
         {# Footer accepts same section types + custom-html #}
@@ -356,6 +356,7 @@
         {% endfor %}
       </div>
     </div>
+    <p class="hp-empty" id="footer-full-msg" style="display:none">{{ __("homepage.footer.full") }}</p>
 
     <input type="hidden" name="footer" id="footer-json" value='{{ config.footer | dump | safe }}'>
   </section>
@@ -630,8 +631,11 @@
     initSortable();
   }
 
-  // --- Footer ---
+  // --- Footer (max 3 columns) ---
+  var FOOTER_MAX = 3;
+
   function addFooter(id) {
+    if (footer.length >= FOOTER_MAX) return;
     var item = { type: id, config: {}, _key: nextKey++ };
     footer.push(item);
     updateFooter();
@@ -660,6 +664,11 @@
       footer, allLabels, removeFooter, editFooter,
       '{{ __("homepage.footer.empty") }}'
     );
+    // Show/hide picker based on column limit
+    var picker = document.getElementById('footer-picker');
+    var fullMsg = document.getElementById('footer-full-msg');
+    if (picker) picker.style.display = footer.length >= FOOTER_MAX ? 'none' : '';
+    if (fullMsg) fullMsg.style.display = footer.length >= FOOTER_MAX ? '' : 'none';
     initSortable();
   }
 
