@@ -311,7 +311,7 @@
       </div>
     </div>
 
-    <input type="hidden" name="sections" id="sections-json" value='{{ config.sections | dump | safe }}'>
+    <input type="hidden" name="sections" id="sections-json" value='{{ config.sections | dump }}'>
   </section>
 
   {# Sidebar Widgets #}
@@ -332,7 +332,7 @@
       </div>
     </div>
 
-    <input type="hidden" name="sidebar" id="sidebar-json" value='{{ config.sidebar | dump | safe }}'>
+    <input type="hidden" name="sidebar" id="sidebar-json" value='{{ config.sidebar | dump }}'>
   </section>
 
   {# Footer #}
@@ -358,7 +358,7 @@
     </div>
     <p class="hp-empty" id="footer-full-msg" style="display:none">{{ __("homepage.footer.full") }}</p>
 
-    <input type="hidden" name="footer" id="footer-json" value='{{ config.footer | dump | safe }}'>
+    <input type="hidden" name="footer" id="footer-json" value='{{ config.footer | dump }}'>
   </section>
 
   {# Save Button #}
