@@ -6,7 +6,9 @@
       "title": "Quick Start",
       "description": "Choose a preset to quickly configure your homepage. You can customize it further below.",
       "apply": "Apply",
-      "active": "Active"
+      "active": "Active",
+      "custom": "Custom",
+      "customDescription": "Your own customized layout"
     },
     "saved": "Configuration saved successfully. Refresh your homepage to see changes.",
     "save": "Save Configuration",
