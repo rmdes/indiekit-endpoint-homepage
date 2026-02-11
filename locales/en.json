@@ -2,6 +2,12 @@
   "homepage": {
     "title": "Homepage Builder",
     "description": "Configure your homepage layout, sections, sidebar widgets, and footer.",
+    "presets": {
+      "title": "Quick Start",
+      "description": "Choose a preset to quickly configure your homepage. You can customize it further below.",
+      "apply": "Apply",
+      "active": "Active"
+    },
     "saved": "Configuration saved successfully. Refresh your homepage to see changes.",
     "save": "Save Configuration",
     "layout": {
