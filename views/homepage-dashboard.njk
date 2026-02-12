@@ -443,6 +443,59 @@
     <input type="hidden" name="sidebar" id="sidebar-json" value='{{ config.sidebar | dump }}'>
   </section>
 
+  {# Blog Listing Sidebar #}
+  <section class="hp-section">
+    <h2>{{ __("homepage.blogListingSidebar.title") }}</h2>
+    <p class="hp-section__desc">{{ __("homepage.blogListingSidebar.description") }}</p>
+
+    <ul class="hp-sections-list" id="blog-listing-sidebar-list"></ul>
+
+    <div class="hp-section-picker">
+      <h3>{{ __("homepage.blogListingSidebar.add") }}</h3>
+      <div class="hp-section-picker__grid">
+        {% for widget in widgets %}
+        <div class="hp-section-picker__item" data-add-blog-listing-widget="{{ widget.id }}">
+          {{ widget.label }}
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <input type="hidden" name="blogListingSidebar" id="blog-listing-sidebar-json" value='{{ config.blogListingSidebar | dump }}'>
+  </section>
+
+  {# Blog Post Sidebar #}
+  <section class="hp-section">
+    <h2>{{ __("homepage.blogPostSidebar.title") }}</h2>
+    <p class="hp-section__desc">{{ __("homepage.blogPostSidebar.description") }}</p>
+
+    <ul class="hp-sections-list" id="blog-post-sidebar-list"></ul>
+
+    <div class="hp-section-picker">
+      <h3>{{ __("homepage.blogPostSidebar.add") }}</h3>
+      <div class="hp-section-picker__grid">
+        <div class="hp-section-picker__heading">Post Widgets</div>
+        {% for widget in blogPostWidgets %}
+        {% if widget.id in ["author-card-compact", "post-navigation", "toc", "post-categories", "webmentions", "share", "subscribe"] %}
+        <div class="hp-section-picker__item" data-add-blog-post-widget="{{ widget.id }}">
+          {{ widget.label }}
+        </div>
+        {% endif %}
+        {% endfor %}
+        <div class="hp-section-picker__heading">Universal Widgets</div>
+        {% for widget in blogPostWidgets %}
+        {% if widget.id not in ["author-card-compact", "post-navigation", "toc", "post-categories", "webmentions", "share", "subscribe"] %}
+        <div class="hp-section-picker__item" data-add-blog-post-widget="{{ widget.id }}">
+          {{ widget.label }}
+        </div>
+        {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+
+    <input type="hidden" name="blogPostSidebar" id="blog-post-sidebar-json" value='{{ config.blogPostSidebar | dump }}'>
+  </section>
+
   {# Footer #}
   <section class="hp-section">
     <h2>{{ __("homepage.footer.title") }}</h2>
@@ -483,8 +536,11 @@
   var widgetLabels = {
     {% for widget in widgets %}'{{ widget.id }}': '{{ widget.label }}'{% if not loop.last %}, {% endif %}{% endfor %}
   };
+  var blogPostWidgetLabels = {
+    {% for widget in blogPostWidgets %}'{{ widget.id }}': '{{ widget.label }}'{% if not loop.last %}, {% endif %}{% endfor %}
+  };
   // Merge so all label maps cover all types
-  var allLabels = Object.assign({}, sectionLabels, widgetLabels);
+  var allLabels = Object.assign({}, sectionLabels, widgetLabels, blogPostWidgetLabels);
 
   // Unique key counter for tracking items
   var nextKey = 0;
@@ -492,10 +548,14 @@
   // Parse current data from hidden inputs and assign keys
   var sections = JSON.parse(document.getElementById('sections-json').value || '[]');
   var sidebar = JSON.parse(document.getElementById('sidebar-json').value || '[]');
+  var blogListingSidebar = JSON.parse(document.getElementById('blog-listing-sidebar-json').value || '[]');
+  var blogPostSidebar = JSON.parse(document.getElementById('blog-post-sidebar-json').value || '[]');
   var footer = JSON.parse(document.getElementById('footer-json').value || '[]');
 
   sections.forEach(function(s) { s._key = nextKey++; });
   sidebar.forEach(function(s) { s._key = nextKey++; });
+  blogListingSidebar.forEach(function(s) { s._key = nextKey++; });
+  blogPostSidebar.forEach(function(s) { s._key = nextKey++; });
   footer.forEach(function(s) { s._key = nextKey++; });
 
   // Strip _key before form submission
@@ -739,6 +799,72 @@
     initSortable();
   }
 
+  // --- Blog Listing Sidebar ---
+  function addBlogListingWidget(id) {
+    var item = { type: id, config: {}, _key: nextKey++ };
+    blogListingSidebar.push(item);
+    updateBlogListingSidebar();
+    if (id === 'custom-html') {
+      var list = document.getElementById('blog-listing-sidebar-list');
+      var lastPanel = list.querySelector('details.hp-edit-panel:last-of-type');
+      if (lastPanel) lastPanel.open = true;
+    }
+  }
+
+  function removeBlogListingWidget(key) {
+    blogListingSidebar = blogListingSidebar.filter(function(w) { return w._key !== key; });
+    updateBlogListingSidebar();
+  }
+
+  function editBlogListingWidget(key, config) {
+    var item = blogListingSidebar.find(function(s) { return s._key === key; });
+    if (item) item.config = config;
+    updateBlogListingSidebar();
+  }
+
+  function updateBlogListingSidebar() {
+    document.getElementById('blog-listing-sidebar-json').value = JSON.stringify(stripKeys(blogListingSidebar));
+    renderList(
+      document.getElementById('blog-listing-sidebar-list'),
+      blogListingSidebar, allLabels, removeBlogListingWidget, editBlogListingWidget,
+      '{{ __("homepage.blogListingSidebar.empty") }}'
+    );
+    initSortable();
+  }
+
+  // --- Blog Post Sidebar ---
+  function addBlogPostWidget(id) {
+    var item = { type: id, config: {}, _key: nextKey++ };
+    blogPostSidebar.push(item);
+    updateBlogPostSidebar();
+    if (id === 'custom-html') {
+      var list = document.getElementById('blog-post-sidebar-list');
+      var lastPanel = list.querySelector('details.hp-edit-panel:last-of-type');
+      if (lastPanel) lastPanel.open = true;
+    }
+  }
+
+  function removeBlogPostWidget(key) {
+    blogPostSidebar = blogPostSidebar.filter(function(w) { return w._key !== key; });
+    updateBlogPostSidebar();
+  }
+
+  function editBlogPostWidget(key, config) {
+    var item = blogPostSidebar.find(function(s) { return s._key === key; });
+    if (item) item.config = config;
+    updateBlogPostSidebar();
+  }
+
+  function updateBlogPostSidebar() {
+    document.getElementById('blog-post-sidebar-json').value = JSON.stringify(stripKeys(blogPostSidebar));
+    renderList(
+      document.getElementById('blog-post-sidebar-list'),
+      blogPostSidebar, allLabels, removeBlogPostWidget, editBlogPostWidget,
+      '{{ __("homepage.blogPostSidebar.empty") }}'
+    );
+    initSortable();
+  }
+
   // --- Footer (max 3 columns) ---
   var FOOTER_MAX = 3;
 
@@ -802,6 +928,16 @@
     document.getElementById('sidebar-json').value = JSON.stringify(stripKeys(sidebar));
   }
 
+  function syncBlogListingSidebarFromDom() {
+    blogListingSidebar = syncFromDom(document.getElementById('blog-listing-sidebar-list'), blogListingSidebar);
+    document.getElementById('blog-listing-sidebar-json').value = JSON.stringify(stripKeys(blogListingSidebar));
+  }
+
+  function syncBlogPostSidebarFromDom() {
+    blogPostSidebar = syncFromDom(document.getElementById('blog-post-sidebar-list'), blogPostSidebar);
+    document.getElementById('blog-post-sidebar-json').value = JSON.stringify(stripKeys(blogPostSidebar));
+  }
+
   function syncFooterFromDom() {
     footer = syncFromDom(document.getElementById('footer-list'), footer);
     document.getElementById('footer-json').value = JSON.stringify(stripKeys(footer));
@@ -821,6 +957,12 @@
   });
   document.querySelectorAll('[data-add-widget]').forEach(function(el) {
     el.addEventListener('click', function() { addWidget(el.dataset.addWidget); });
+  });
+  document.querySelectorAll('[data-add-blog-listing-widget]').forEach(function(el) {
+    el.addEventListener('click', function() { addBlogListingWidget(el.dataset.addBlogListingWidget); });
+  });
+  document.querySelectorAll('[data-add-blog-post-widget]').forEach(function(el) {
+    el.addEventListener('click', function() { addBlogPostWidget(el.dataset.addBlogPostWidget); });
   });
   document.querySelectorAll('[data-add-footer]').forEach(function(el) {
     el.addEventListener('click', function() { addFooter(el.dataset.addFooter); });
@@ -847,6 +989,8 @@
     var lists = [
       { el: 'sections-list', sync: syncSectionsFromDom },
       { el: 'widgets-list', sync: syncSidebarFromDom },
+      { el: 'blog-listing-sidebar-list', sync: syncBlogListingSidebarFromDom },
+      { el: 'blog-post-sidebar-list', sync: syncBlogPostSidebarFromDom },
       { el: 'footer-list', sync: syncFooterFromDom }
     ];
 
@@ -877,6 +1021,8 @@
   // --- Initial render ---
   updateSections();
   updateWidgets();
+  updateBlogListingSidebar();
+  updateBlogPostSidebar();
   updateFooter();
 </script>
 {% endblock %}

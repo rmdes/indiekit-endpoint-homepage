@@ -35,6 +35,18 @@
       "add": "Add Widget",
       "empty": "No widgets configured. Add widgets from the picker below."
     },
+    "blogListingSidebar": {
+      "title": "Blog Listing Sidebar",
+      "description": "Configure widgets that appear in the sidebar on blog listing pages (/blog/, /notes/, /articles/...). Leave empty to use default widgets.",
+      "add": "Add Widget",
+      "empty": "No widgets configured — using default sidebar."
+    },
+    "blogPostSidebar": {
+      "title": "Blog Post Sidebar",
+      "description": "Configure widgets that appear in the sidebar on individual post pages. Leave empty to use default widgets.",
+      "add": "Add Widget",
+      "empty": "No widgets configured — using default sidebar."
+    },
     "footer": {
       "title": "Footer (3-column)",
       "description": "A responsive 3-column area below the main content — add up to 3 blocks (one per column). Ideal for webrings, links, or custom content.",

@@ -263,6 +263,70 @@ export default class HomepageEndpoint {
   }
 
   /**
+   * Built-in blog post sidebar widget types (post-specific + universal)
+   */
+  get blogPostWidgets() {
+    return [
+      {
+        id: "author-card-compact",
+        label: "Author Card (Compact)",
+        description: "Compact h-card with avatar and name",
+        icon: "user",
+        defaultConfig: {},
+        configSchema: {},
+      },
+      {
+        id: "post-navigation",
+        label: "Post Navigation",
+        description: "Previous/next post links",
+        icon: "arrow-left-right",
+        defaultConfig: {},
+        configSchema: {},
+      },
+      {
+        id: "toc",
+        label: "Table of Contents",
+        description: "Auto-generated from headings",
+        icon: "list",
+        defaultConfig: {},
+        configSchema: {},
+      },
+      {
+        id: "post-categories",
+        label: "Post Categories",
+        description: "Categories for the current post",
+        icon: "tag",
+        defaultConfig: {},
+        configSchema: {},
+      },
+      {
+        id: "webmentions",
+        label: "Webmentions",
+        description: "Likes, reposts, and replies",
+        icon: "message-circle",
+        defaultConfig: {},
+        configSchema: {},
+      },
+      {
+        id: "share",
+        label: "Share",
+        description: "Share on Bluesky and Mastodon",
+        icon: "share",
+        defaultConfig: {},
+        configSchema: {},
+      },
+      {
+        id: "subscribe",
+        label: "Subscribe",
+        description: "RSS and JSON feed links",
+        icon: "rss",
+        defaultConfig: {},
+        configSchema: {},
+      },
+    ];
+  }
+
+  /**
    * Protected routes (require authentication)
    */
   get routes() {
@@ -335,6 +399,9 @@ export default class HomepageEndpoint {
     const discoveredSections = [...this.homepageSections];
     const discoveredWidgets = [...this.homepageWidgets];
 
+    // Blog post widgets = post-specific widgets + universal widgets
+    const discoveredBlogPostWidgets = [...this.blogPostWidgets];
+
     // Scan all endpoints for homepageSections
     for (const endpoint of Indiekit.endpoints || []) {
       if (endpoint === this) continue; // Skip self
@@ -362,9 +429,14 @@ export default class HomepageEndpoint {
     // Store discovered sections/widgets for API access
     Indiekit.config.application.discoveredSections = discoveredSections;
     Indiekit.config.application.discoveredWidgets = discoveredWidgets;
+    // Blog post widgets: post-specific + all universal widgets
+    Indiekit.config.application.discoveredBlogPostWidgets = [
+      ...discoveredBlogPostWidgets,
+      ...discoveredWidgets,
+    ];
 
     console.log(
-      `[Homepage] Discovered ${discoveredSections.length} sections, ${discoveredWidgets.length} widgets`
+      `[Homepage] Discovered ${discoveredSections.length} sections, ${discoveredWidgets.length} widgets, ${discoveredBlogPostWidgets.length} blog post widgets`
     );
   }
 }
