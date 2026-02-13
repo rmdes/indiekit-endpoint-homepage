@@ -276,14 +276,6 @@ export default class HomepageEndpoint {
         configSchema: {},
       },
       {
-        id: "post-navigation",
-        label: "Post Navigation",
-        description: "Previous/next post links",
-        icon: "arrow-left-right",
-        defaultConfig: {},
-        configSchema: {},
-      },
-      {
         id: "toc",
         label: "Table of Contents",
         description: "Auto-generated from headings",
