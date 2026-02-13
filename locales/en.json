@@ -1,5 +1,5 @@
 {
-  "homepage": {
+  "homepageBuilder": {
     "title": "Homepage Builder",
     "description": "Configure your homepage layout, sections, sidebar widgets, and footer.",
     "presets": {

@@ -34,7 +34,7 @@ export default class HomepageEndpoint {
   get navigationItems() {
     return {
       href: this.options.mountPath,
-      text: "homepage.title",
+      text: "homepageBuilder.title",
       requiresDatabase: true,
     };
   }
@@ -42,7 +42,7 @@ export default class HomepageEndpoint {
   get shortcutItems() {
     return {
       url: this.options.mountPath,
-      name: "homepage.title",
+      name: "homepageBuilder.title",
       iconName: "home",
       requiresDatabase: true,
     };

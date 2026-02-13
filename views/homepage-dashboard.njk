@@ -297,21 +297,21 @@
 </style>
 
 <header class="page-header">
-  <h1 class="page-header__title">{{ __("homepage.title") }}</h1>
-  <p class="page-header__description">{{ __("homepage.description") }}</p>
+  <h1 class="page-header__title">{{ __("homepageBuilder.title") }}</h1>
+  <p class="page-header__description">{{ __("homepageBuilder.description") }}</p>
 </header>
 
 {% if request.query.saved %}
 <div class="hp-success">
-  <p>{{ __("homepage.saved") }}</p>
+  <p>{{ __("homepageBuilder.saved") }}</p>
 </div>
 {% endif %}
 
 {# Quick Start Presets #}
 {% if presets and presets.length %}
 <section class="hp-section" style="margin-block-end: var(--space-xl, 2rem);">
-  <h2>{{ __("homepage.presets.title") }}</h2>
-  <p class="hp-section__desc">{{ __("homepage.presets.description") }}</p>
+  <h2>{{ __("homepageBuilder.presets.title") }}</h2>
+  <p class="hp-section__desc">{{ __("homepageBuilder.presets.description") }}</p>
 
   <div class="hp-preset-grid">
     {% for preset in presets %}
@@ -336,9 +336,9 @@
       <div class="hp-preset-card__label">{{ preset.label }}</div>
       <div class="hp-preset-card__desc">{{ preset.description }}</div>
       {% if activePresetId == preset.id %}
-      <div class="hp-preset-card__badge">{{ __("homepage.presets.active") }}</div>
+      <div class="hp-preset-card__badge">{{ __("homepageBuilder.presets.active") }}</div>
       {% else %}
-      <button type="submit" class="button button--small">{{ __("homepage.presets.apply") }}</button>
+      <button type="submit" class="button button--small">{{ __("homepageBuilder.presets.apply") }}</button>
       {% endif %}
     </form>
     {% endfor %}
@@ -350,10 +350,10 @@
           <line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/>
         </svg>
       </div>
-      <div class="hp-preset-card__label">{{ __("homepage.presets.custom") }}</div>
-      <div class="hp-preset-card__desc">{{ __("homepage.presets.customDescription") }}</div>
+      <div class="hp-preset-card__label">{{ __("homepageBuilder.presets.custom") }}</div>
+      <div class="hp-preset-card__desc">{{ __("homepageBuilder.presets.customDescription") }}</div>
       {% if not activePresetId %}
-      <div class="hp-preset-card__badge">{{ __("homepage.presets.active") }}</div>
+      <div class="hp-preset-card__badge">{{ __("homepageBuilder.presets.active") }}</div>
       {% endif %}
     </div>
   </div>
@@ -363,7 +363,7 @@
 <form method="post" action="{{ homepageEndpoint }}/save" class="hp-dashboard" id="hp-form">
   {# Layout Selection #}
   <section class="hp-section">
-    <h2>{{ __("homepage.layout.title") }}</h2>
+    <h2>{{ __("homepageBuilder.layout.title") }}</h2>
     <div class="hp-layout-grid">
       {% for layout in layouts %}
       <label class="hp-layout-option {% if config.layout == layout.id %}selected{% endif %}">
@@ -383,30 +383,30 @@
 
   {# Hero Configuration #}
   <section class="hp-section">
-    <h2>{{ __("homepage.hero.title") }}</h2>
+    <h2>{{ __("homepageBuilder.hero.title") }}</h2>
     <div class="field">
       <label class="field__label">
         <input type="checkbox" name="hero[enabled]" value="true" {% if config.hero.enabled %}checked{% endif %}>
-        {{ __("homepage.hero.enabled") }}
+        {{ __("homepageBuilder.hero.enabled") }}
       </label>
     </div>
     <div class="field">
       <label class="field__label">
         <input type="checkbox" name="hero[showSocial]" value="true" {% if config.hero.showSocial %}checked{% endif %}>
-        {{ __("homepage.hero.showSocial") }}
+        {{ __("homepageBuilder.hero.showSocial") }}
       </label>
     </div>
   </section>
 
   {# Content Sections #}
   <section class="hp-section">
-    <h2>{{ __("homepage.sections.title") }}</h2>
-    <p class="hp-section__desc">{{ __("homepage.sections.description") }}</p>
+    <h2>{{ __("homepageBuilder.sections.title") }}</h2>
+    <p class="hp-section__desc">{{ __("homepageBuilder.sections.description") }}</p>
 
     <ul class="hp-sections-list" id="sections-list"></ul>
 
     <div class="hp-section-picker">
-      <h3>{{ __("homepage.sections.add") }}</h3>
+      <h3>{{ __("homepageBuilder.sections.add") }}</h3>
       <div class="hp-section-picker__grid">
         {% for source, items in sectionsByPlugin %}
         <div class="hp-section-picker__heading">{{ source }}</div>
@@ -424,13 +424,13 @@
 
   {# Sidebar Widgets #}
   <section class="hp-section">
-    <h2>{{ __("homepage.sidebar.title") }}</h2>
-    <p class="hp-section__desc">{{ __("homepage.sidebar.description") }}</p>
+    <h2>{{ __("homepageBuilder.sidebar.title") }}</h2>
+    <p class="hp-section__desc">{{ __("homepageBuilder.sidebar.description") }}</p>
 
     <ul class="hp-sections-list" id="widgets-list"></ul>
 
     <div class="hp-section-picker">
-      <h3>{{ __("homepage.sidebar.add") }}</h3>
+      <h3>{{ __("homepageBuilder.sidebar.add") }}</h3>
       <div class="hp-section-picker__grid">
         {% for widget in widgets %}
         <div class="hp-section-picker__item" data-add-widget="{{ widget.id }}">
@@ -445,13 +445,13 @@
 
   {# Blog Listing Sidebar #}
   <section class="hp-section">
-    <h2>{{ __("homepage.blogListingSidebar.title") }}</h2>
-    <p class="hp-section__desc">{{ __("homepage.blogListingSidebar.description") }}</p>
+    <h2>{{ __("homepageBuilder.blogListingSidebar.title") }}</h2>
+    <p class="hp-section__desc">{{ __("homepageBuilder.blogListingSidebar.description") }}</p>
 
     <ul class="hp-sections-list" id="blog-listing-sidebar-list"></ul>
 
     <div class="hp-section-picker">
-      <h3>{{ __("homepage.blogListingSidebar.add") }}</h3>
+      <h3>{{ __("homepageBuilder.blogListingSidebar.add") }}</h3>
       <div class="hp-section-picker__grid">
         {% for widget in widgets %}
         <div class="hp-section-picker__item" data-add-blog-listing-widget="{{ widget.id }}">
@@ -466,13 +466,13 @@
 
   {# Blog Post Sidebar #}
   <section class="hp-section">
-    <h2>{{ __("homepage.blogPostSidebar.title") }}</h2>
-    <p class="hp-section__desc">{{ __("homepage.blogPostSidebar.description") }}</p>
+    <h2>{{ __("homepageBuilder.blogPostSidebar.title") }}</h2>
+    <p class="hp-section__desc">{{ __("homepageBuilder.blogPostSidebar.description") }}</p>
 
     <ul class="hp-sections-list" id="blog-post-sidebar-list"></ul>
 
     <div class="hp-section-picker">
-      <h3>{{ __("homepage.blogPostSidebar.add") }}</h3>
+      <h3>{{ __("homepageBuilder.blogPostSidebar.add") }}</h3>
       <div class="hp-section-picker__grid">
         <div class="hp-section-picker__heading">Post Widgets</div>
         {% for widget in blogPostWidgets %}
@@ -498,13 +498,13 @@
 
   {# Footer #}
   <section class="hp-section">
-    <h2>{{ __("homepage.footer.title") }}</h2>
-    <p class="hp-section__desc">{{ __("homepage.footer.description") }}</p>
+    <h2>{{ __("homepageBuilder.footer.title") }}</h2>
+    <p class="hp-section__desc">{{ __("homepageBuilder.footer.description") }}</p>
 
     <ul class="hp-sections-list" id="footer-list"></ul>
 
     <div class="hp-section-picker" id="footer-picker">
-      <h3>{{ __("homepage.footer.add") }}</h3>
+      <h3>{{ __("homepageBuilder.footer.add") }}</h3>
       <div class="hp-section-picker__grid">
         {# Footer accepts same section types + custom-html #}
         {% for source, items in sectionsByPlugin %}
@@ -517,14 +517,14 @@
         {% endfor %}
       </div>
     </div>
-    <p class="hp-empty" id="footer-full-msg" style="display:none">{{ __("homepage.footer.full") }}</p>
+    <p class="hp-empty" id="footer-full-msg" style="display:none">{{ __("homepageBuilder.footer.full") }}</p>
 
     <input type="hidden" name="footer" id="footer-json" value='{{ config.footer | dump }}'>
   </section>
 
   {# Save Button #}
   <div class="button-group">
-    <button type="submit" class="button button--primary">{{ __("homepage.save") }}</button>
+    <button type="submit" class="button button--primary">{{ __("homepageBuilder.save") }}</button>
   </div>
 </form>
 
@@ -662,7 +662,7 @@
       titleField.className = 'field';
       var titleLabel = document.createElement('label');
       titleLabel.className = 'field__label';
-      titleLabel.textContent = '{{ __("homepage.customContent.titleLabel") }}';
+      titleLabel.textContent = '{{ __("homepageBuilder.customContent.titleLabel") }}';
       var titleInput = document.createElement('input');
       titleInput.className = 'field__input';
       titleInput.type = 'text';
@@ -676,7 +676,7 @@
       contentField.className = 'field';
       var contentLabel = document.createElement('label');
       contentLabel.className = 'field__label';
-      contentLabel.textContent = '{{ __("homepage.customContent.contentLabel") }}';
+      contentLabel.textContent = '{{ __("homepageBuilder.customContent.contentLabel") }}';
       var contentInput = document.createElement('textarea');
       contentInput.className = 'field__input';
       contentInput.rows = 6;
@@ -692,7 +692,7 @@
       var saveBtn = document.createElement('button');
       saveBtn.type = 'button';
       saveBtn.className = 'button button--primary button--small';
-      saveBtn.textContent = '{{ __("homepage.customContent.save") }}';
+      saveBtn.textContent = '{{ __("homepageBuilder.customContent.save") }}';
       saveBtn.addEventListener('click', function() {
         editFn(item._key, {
           title: titleInput.value,
@@ -704,7 +704,7 @@
       var cancelBtn = document.createElement('button');
       cancelBtn.type = 'button';
       cancelBtn.className = 'button button--small button--secondary';
-      cancelBtn.textContent = '{{ __("homepage.customContent.cancel") }}';
+      cancelBtn.textContent = '{{ __("homepageBuilder.customContent.cancel") }}';
       cancelBtn.addEventListener('click', function() { details.open = false; });
 
       buttons.appendChild(saveBtn);
@@ -761,7 +761,7 @@
     renderList(
       document.getElementById('sections-list'),
       sections, allLabels, removeSection, editSection,
-      '{{ __("homepage.sections.empty") }}'
+      '{{ __("homepageBuilder.sections.empty") }}'
     );
     initSortable();
   }
@@ -794,7 +794,7 @@
     renderList(
       document.getElementById('widgets-list'),
       sidebar, allLabels, removeWidget, editWidget,
-      '{{ __("homepage.sidebar.empty") }}'
+      '{{ __("homepageBuilder.sidebar.empty") }}'
     );
     initSortable();
   }
@@ -827,7 +827,7 @@
     renderList(
       document.getElementById('blog-listing-sidebar-list'),
       blogListingSidebar, allLabels, removeBlogListingWidget, editBlogListingWidget,
-      '{{ __("homepage.blogListingSidebar.empty") }}'
+      '{{ __("homepageBuilder.blogListingSidebar.empty") }}'
     );
     initSortable();
   }
@@ -860,7 +860,7 @@
     renderList(
       document.getElementById('blog-post-sidebar-list'),
       blogPostSidebar, allLabels, removeBlogPostWidget, editBlogPostWidget,
-      '{{ __("homepage.blogPostSidebar.empty") }}'
+      '{{ __("homepageBuilder.blogPostSidebar.empty") }}'
     );
     initSortable();
   }
@@ -896,7 +896,7 @@
     renderList(
       document.getElementById('footer-list'),
       footer, allLabels, removeFooter, editFooter,
-      '{{ __("homepage.footer.empty") }}'
+      '{{ __("homepageBuilder.footer.empty") }}'
     );
     // Show/hide picker based on column limit
     var picker = document.getElementById('footer-picker');
