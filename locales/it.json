@@ -1,0 +1,65 @@
+{
+  "homepageBuilder": {
+    "title": "Costruttore Homepage",
+    "description": "Configura il layout della tua homepage, sezioni, widget della barra laterale e footer.",
+    "presets": {
+      "title": "Avvio rapido",
+      "description": "Scegli un preset per configurare rapidamente la tua homepage. Puoi personalizzarla ulteriormente di seguito.",
+      "apply": "Applica",
+      "active": "Attivo",
+      "custom": "Personalizzato",
+      "customDescription": "Il tuo layout personalizzato"
+    },
+    "saved": "Configurazione salvata con successo. Aggiorna la tua homepage per vedere le modifiche.",
+    "save": "Salva Configurazione",
+    "layout": {
+      "title": "Layout",
+      "singleColumn": "Colonna Singola",
+      "twoColumn": "Due Colonne con Barra Laterale",
+      "fullWidthHero": "Hero a Larghezza Intera + Griglia"
+    },
+    "hero": {
+      "title": "Sezione Hero",
+      "enabled": "Mostra sezione hero con info autore",
+      "showSocial": "Mostra link social nell'hero"
+    },
+    "sections": {
+      "title": "Sezioni Contenuto",
+      "description": "Aggiungi e organizza le sezioni che appaiono nell'area del contenuto principale.",
+      "add": "Aggiungi Sezione",
+      "empty": "Nessuna sezione configurata. Aggiungi sezioni dal selettore qui sotto."
+    },
+    "sidebar": {
+      "title": "Widget Barra Laterale",
+      "description": "Configura i widget che appaiono nella barra laterale (visibili solo con layout a due colonne).",
+      "add": "Aggiungi Widget",
+      "empty": "Nessun widget configurato. Aggiungi widget dal selettore qui sotto."
+    },
+    "blogListingSidebar": {
+      "title": "Barra Laterale Elenco Blog",
+      "description": "Configura i widget che appaiono nella barra laterale nelle pagine di elenco blog (/blog/, /notes/, /articles/...). Lascia vuoto per usare i widget predefiniti.",
+      "add": "Aggiungi Widget",
+      "empty": "Nessun widget configurato — usando la barra laterale predefinita."
+    },
+    "blogPostSidebar": {
+      "title": "Barra Laterale Post Blog",
+      "description": "Configura i widget che appaiono nella barra laterale nelle pagine dei singoli post. Lascia vuoto per usare i widget predefiniti.",
+      "add": "Aggiungi Widget",
+      "empty": "Nessun widget configurato — usando la barra laterale predefinita."
+    },
+    "footer": {
+      "title": "Footer (3 colonne)",
+      "description": "Un'area responsive a 3 colonne sotto il contenuto principale — aggiungi fino a 3 blocchi (uno per colonna). Ideale per webring, link o contenuto personalizzato.",
+      "add": "Aggiungi Colonna Footer",
+      "empty": "Nessuna colonna footer configurata.",
+      "full": "Tutte e 3 le colonne footer sono piene."
+    },
+    "customContent": {
+      "editTitle": "Modifica Contenuto Personalizzato",
+      "titleLabel": "Titolo (opzionale)",
+      "contentLabel": "Contenuto (HTML o testo)",
+      "save": "Applica",
+      "cancel": "Annulla"
+    }
+  }
+}

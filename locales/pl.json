@@ -1,0 +1,65 @@
+{
+  "homepageBuilder": {
+    "title": "Kreator Strony Głównej",
+    "description": "Skonfiguruj układ swojej strony głównej, sekcje, widgety paska bocznego i stopkę.",
+    "presets": {
+      "title": "Szybki Start",
+      "description": "Wybierz preset, aby szybko skonfigurować swoją stronę główną. Możesz ją dalej dostosować poniżej.",
+      "apply": "Zastosuj",
+      "active": "Aktywny",
+      "custom": "Niestandardowy",
+      "customDescription": "Twój własny dostosowany układ"
+    },
+    "saved": "Konfiguracja zapisana pomyślnie. Odśwież swoją stronę główną, aby zobaczyć zmiany.",
+    "save": "Zapisz Konfigurację",
+    "layout": {
+      "title": "Układ",
+      "singleColumn": "Jedna Kolumna",
+      "twoColumn": "Dwie Kolumny z Paskiem Bocznym",
+      "fullWidthHero": "Hero Pełnej Szerokości + Siatka"
+    },
+    "hero": {
+      "title": "Sekcja Hero",
+      "enabled": "Pokaż sekcję hero z informacjami o autorze",
+      "showSocial": "Pokaż linki społecznościowe w hero"
+    },
+    "sections": {
+      "title": "Sekcje Treści",
+      "description": "Dodaj i uporządkuj sekcje, które pojawiają się w głównym obszarze treści.",
+      "add": "Dodaj Sekcję",
+      "empty": "Brak skonfigurowanych sekcji. Dodaj sekcje z selektora poniżej."
+    },
+    "sidebar": {
+      "title": "Widgety Paska Bocznego",
+      "description": "Skonfiguruj widgety, które pojawiają się w pasku bocznym (widoczne tylko z układem dwóch kolumn).",
+      "add": "Dodaj Widget",
+      "empty": "Brak skonfigurowanych widgetów. Dodaj widgety z selektora poniżej."
+    },
+    "blogListingSidebar": {
+      "title": "Pasek Boczny Listy Bloga",
+      "description": "Skonfiguruj widgety pojawiające się w pasku bocznym na stronach list bloga (/blog/, /notes/, /articles/...). Pozostaw puste, aby użyć domyślnych widgetów.",
+      "add": "Dodaj Widget",
+      "empty": "Brak skonfigurowanych widgetów — używanie domyślnego paska bocznego."
+    },
+    "blogPostSidebar": {
+      "title": "Pasek Boczny Wpisu Bloga",
+      "description": "Skonfiguruj widgety pojawiające się w pasku bocznym na stronach pojedynczych wpisów. Pozostaw puste, aby użyć domyślnych widgetów.",
+      "add": "Dodaj Widget",
+      "empty": "Brak skonfigurowanych widgetów — używanie domyślnego paska bocznego."
+    },
+    "footer": {
+      "title": "Stopka (3-kolumnowa)",
+      "description": "Responsywny 3-kolumnowy obszar poniżej głównej treści — dodaj do 3 bloków (jeden na kolumnę). Idealny dla webringów, linków lub niestandardowej treści.",
+      "add": "Dodaj Kolumnę Stopki",
+      "empty": "Brak skonfigurowanych kolumn stopki.",
+      "full": "Wszystkie 3 kolumny stopki są wypełnione."
+    },
+    "customContent": {
+      "editTitle": "Edytuj Niestandardową Treść",
+      "titleLabel": "Tytuł (opcjonalny)",
+      "contentLabel": "Treść (HTML lub tekst)",
+      "save": "Zastosuj",
+      "cancel": "Anuluj"
+    }
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "homepageBuilder": {
+    "title": "Pembuat Beranda",
+    "description": "Konfigurasi tata letak beranda, bagian, widget sidebar, dan footer Anda.",
+    "presets": {
+      "title": "Mulai Cepat",
+      "description": "Pilih preset untuk mengkonfigurasi beranda Anda dengan cepat. Anda dapat menyesuaikannya lebih lanjut di bawah.",
+      "apply": "Terapkan",
+      "active": "Aktif",
+      "custom": "Kustom",
+      "customDescription": "Tata letak kustom Anda sendiri"
+    },
+    "saved": "Konfigurasi berhasil disimpan. Refresh beranda Anda untuk melihat perubahan.",
+    "save": "Simpan Konfigurasi",
+    "layout": {
+      "title": "Tata Letak",
+      "singleColumn": "Kolom Tunggal",
+      "twoColumn": "Dua Kolom dengan Sidebar",
+      "fullWidthHero": "Hero Lebar Penuh + Grid"
+    },
+    "hero": {
+      "title": "Bagian Hero",
+      "enabled": "Tampilkan bagian hero dengan info penulis",
+      "showSocial": "Tampilkan tautan sosial di hero"
+    },
+    "sections": {
+      "title": "Bagian Konten",
+      "description": "Tambahkan dan atur bagian yang muncul di area konten utama.",
+      "add": "Tambah Bagian",
+      "empty": "Tidak ada bagian yang dikonfigurasi. Tambahkan bagian dari pemilih di bawah."
+    },
+    "sidebar": {
+      "title": "Widget Sidebar",
+      "description": "Konfigurasi widget yang muncul di sidebar (hanya terlihat dengan tata letak dua kolom).",
+      "add": "Tambah Widget",
+      "empty": "Tidak ada widget yang dikonfigurasi. Tambahkan widget dari pemilih di bawah."
+    },
+    "blogListingSidebar": {
+      "title": "Sidebar Daftar Blog",
+      "description": "Konfigurasi widget yang muncul di sidebar pada halaman daftar blog (/blog/, /notes/, /articles/...). Biarkan kosong untuk menggunakan widget default.",
+      "add": "Tambah Widget",
+      "empty": "Tidak ada widget yang dikonfigurasi — menggunakan sidebar default."
+    },
+    "blogPostSidebar": {
+      "title": "Sidebar Posting Blog",
+      "description": "Konfigurasi widget yang muncul di sidebar pada halaman posting individual. Biarkan kosong untuk menggunakan widget default.",
+      "add": "Tambah Widget",
+      "empty": "Tidak ada widget yang dikonfigurasi — menggunakan sidebar default."
+    },
+    "footer": {
+      "title": "Footer (3-kolom)",
+      "description": "Area responsif 3-kolom di bawah konten utama — tambahkan hingga 3 blok (satu per kolom). Ideal untuk webring, tautan, atau konten kustom.",
+      "add": "Tambah Kolom Footer",
+      "empty": "Tidak ada kolom footer yang dikonfigurasi.",
+      "full": "Semua 3 kolom footer telah terisi."
+    },
+    "customContent": {
+      "editTitle": "Edit Konten Kustom",
+      "titleLabel": "Judul (opsional)",
+      "contentLabel": "Konten (HTML atau teks)",
+      "save": "Terapkan",
+      "cancel": "Batal"
+    }
+  }
+}

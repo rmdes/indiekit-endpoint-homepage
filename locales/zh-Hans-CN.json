@@ -1,0 +1,65 @@
+{
+  "homepageBuilder": {
+    "title": "主页构建器",
+    "description": "配置您的主页布局、分区、侧边栏小部件和页脚。",
+    "presets": {
+      "title": "快速开始",
+      "description": "选择一个预设来快速配置您的主页。您可以在下方进一步自定义。",
+      "apply": "应用",
+      "active": "激活",
+      "custom": "自定义",
+      "customDescription": "您自己的自定义布局"
+    },
+    "saved": "配置保存成功。刷新您的主页以查看更改。",
+    "save": "保存配置",
+    "layout": {
+      "title": "布局",
+      "singleColumn": "单列",
+      "twoColumn": "带侧边栏的双列",
+      "fullWidthHero": "全宽 Hero + 网格"
+    },
+    "hero": {
+      "title": "Hero 分区",
+      "enabled": "显示包含作者信息的 hero 分区",
+      "showSocial": "在 hero 中显示社交链接"
+    },
+    "sections": {
+      "title": "内容分区",
+      "description": "添加并排列出现在主内容区域中的分区。",
+      "add": "添加分区",
+      "empty": "未配置分区。从下方的选择器添加分区。"
+    },
+    "sidebar": {
+      "title": "侧边栏小部件",
+      "description": "配置出现在侧边栏中的小部件（仅在双列布局中可见）。",
+      "add": "添加小部件",
+      "empty": "未配置小部件。从下方的选择器添加小部件。"
+    },
+    "blogListingSidebar": {
+      "title": "博客列表侧边栏",
+      "description": "配置出现在博客列表页面（/blog/、/notes/、/articles/...）侧边栏中的小部件。留空以使用默认小部件。",
+      "add": "添加小部件",
+      "empty": "未配置小部件 — 使用默认侧边栏。"
+    },
+    "blogPostSidebar": {
+      "title": "博客文章侧边栏",
+      "description": "配置出现在单个文章页面侧边栏中的小部件。留空以使用默认小部件。",
+      "add": "添加小部件",
+      "empty": "未配置小部件 — 使用默认侧边栏。"
+    },
+    "footer": {
+      "title": "页脚（3列）",
+      "description": "主内容下方的响应式 3 列区域 — 添加最多 3 个块（每列一个）。适合用于网络环、链接或自定义内容。",
+      "add": "添加页脚列",
+      "empty": "未配置页脚列。",
+      "full": "所有 3 个页脚列均已填满。"
+    },
+    "customContent": {
+      "editTitle": "编辑自定义内容",
+      "titleLabel": "标题（可选）",
+      "contentLabel": "内容（HTML 或文本）",
+      "save": "应用",
+      "cancel": "取消"
+    }
+  }
+}

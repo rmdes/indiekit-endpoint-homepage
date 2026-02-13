@@ -1,0 +1,65 @@
+{
+  "homepageBuilder": {
+    "title": "Constructeur de page d'accueil",
+    "description": "Configurez la mise en page de votre page d'accueil, les sections, les widgets de la barre latérale et le pied de page.",
+    "presets": {
+      "title": "Démarrage rapide",
+      "description": "Choisissez un modèle pour configurer rapidement votre page d'accueil. Vous pouvez la personnaliser davantage ci-dessous.",
+      "apply": "Appliquer",
+      "active": "Actif",
+      "custom": "Personnalisé",
+      "customDescription": "Votre propre mise en page personnalisée"
+    },
+    "saved": "Configuration enregistrée avec succès. Actualisez votre page d'accueil pour voir les modifications.",
+    "save": "Enregistrer la configuration",
+    "layout": {
+      "title": "Mise en page",
+      "singleColumn": "Colonne unique",
+      "twoColumn": "Deux colonnes avec barre latérale",
+      "fullWidthHero": "Hero pleine largeur + Grille"
+    },
+    "hero": {
+      "title": "Section Hero",
+      "enabled": "Afficher la section hero avec les informations sur l'auteur",
+      "showSocial": "Afficher les liens sociaux dans le hero"
+    },
+    "sections": {
+      "title": "Sections de contenu",
+      "description": "Ajoutez et organisez les sections qui apparaissent dans la zone de contenu principal.",
+      "add": "Ajouter une section",
+      "empty": "Aucune section configurée. Ajoutez des sections depuis le sélecteur ci-dessous."
+    },
+    "sidebar": {
+      "title": "Widgets de la barre latérale",
+      "description": "Configurez les widgets qui apparaissent dans la barre latérale (visible uniquement avec la mise en page à deux colonnes).",
+      "add": "Ajouter un widget",
+      "empty": "Aucun widget configuré. Ajoutez des widgets depuis le sélecteur ci-dessous."
+    },
+    "blogListingSidebar": {
+      "title": "Barre latérale des listes de blog",
+      "description": "Configurez les widgets qui apparaissent dans la barre latérale des pages de listes de blog (/blog/, /notes/, /articles/...). Laissez vide pour utiliser les widgets par défaut.",
+      "add": "Ajouter un widget",
+      "empty": "Aucun widget configuré — utilisation de la barre latérale par défaut."
+    },
+    "blogPostSidebar": {
+      "title": "Barre latérale des articles",
+      "description": "Configurez les widgets qui apparaissent dans la barre latérale des pages d'articles individuels. Laissez vide pour utiliser les widgets par défaut.",
+      "add": "Ajouter un widget",
+      "empty": "Aucun widget configuré — utilisation de la barre latérale par défaut."
+    },
+    "footer": {
+      "title": "Pied de page (3 colonnes)",
+      "description": "Une zone responsive à 3 colonnes sous le contenu principal — ajoutez jusqu'à 3 blocs (un par colonne). Idéal pour les webrings, liens ou contenu personnalisé.",
+      "add": "Ajouter une colonne de pied de page",
+      "empty": "Aucune colonne de pied de page configurée.",
+      "full": "Les 3 colonnes de pied de page sont remplies."
+    },
+    "customContent": {
+      "editTitle": "Modifier le contenu personnalisé",
+      "titleLabel": "Titre (facultatif)",
+      "contentLabel": "Contenu (HTML ou texte)",
+      "save": "Appliquer",
+      "cancel": "Annuler"
+    }
+  }
+}

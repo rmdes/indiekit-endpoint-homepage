@@ -1,0 +1,65 @@
+{
+  "homepageBuilder": {
+    "title": "Homepage-Builder",
+    "description": "Konfigurieren Sie das Layout Ihrer Homepage, Abschnitte, Sidebar-Widgets und Fußzeile.",
+    "presets": {
+      "title": "Schnellstart",
+      "description": "Wählen Sie eine Vorlage, um Ihre Homepage schnell zu konfigurieren. Sie können sie unten weiter anpassen.",
+      "apply": "Anwenden",
+      "active": "Aktiv",
+      "custom": "Benutzerdefiniert",
+      "customDescription": "Ihr eigenes angepasstes Layout"
+    },
+    "saved": "Konfiguration erfolgreich gespeichert. Aktualisieren Sie Ihre Homepage, um die Änderungen zu sehen.",
+    "save": "Konfiguration speichern",
+    "layout": {
+      "title": "Layout",
+      "singleColumn": "Einzelne Spalte",
+      "twoColumn": "Zwei Spalten mit Sidebar",
+      "fullWidthHero": "Volle Breite Hero + Raster"
+    },
+    "hero": {
+      "title": "Hero-Bereich",
+      "enabled": "Hero-Bereich mit Autoreninfo anzeigen",
+      "showSocial": "Soziale Links im Hero anzeigen"
+    },
+    "sections": {
+      "title": "Inhaltsbereiche",
+      "description": "Fügen Sie Abschnitte hinzu und ordnen Sie sie im Hauptinhaltsbereich an.",
+      "add": "Abschnitt hinzufügen",
+      "empty": "Keine Abschnitte konfiguriert. Fügen Sie Abschnitte aus der Auswahl unten hinzu."
+    },
+    "sidebar": {
+      "title": "Sidebar-Widgets",
+      "description": "Konfigurieren Sie Widgets, die in der Sidebar erscheinen (nur mit zweispaltigem Layout sichtbar).",
+      "add": "Widget hinzufügen",
+      "empty": "Keine Widgets konfiguriert. Fügen Sie Widgets aus der Auswahl unten hinzu."
+    },
+    "blogListingSidebar": {
+      "title": "Blog-Listen-Sidebar",
+      "description": "Konfigurieren Sie Widgets für die Sidebar auf Blog-Listenseiten (/blog/, /notes/, /articles/...). Leer lassen für Standard-Widgets.",
+      "add": "Widget hinzufügen",
+      "empty": "Keine Widgets konfiguriert — Standard-Sidebar wird verwendet."
+    },
+    "blogPostSidebar": {
+      "title": "Blog-Beitrags-Sidebar",
+      "description": "Konfigurieren Sie Widgets für die Sidebar auf einzelnen Beitragsseiten. Leer lassen für Standard-Widgets.",
+      "add": "Widget hinzufügen",
+      "empty": "Keine Widgets konfiguriert — Standard-Sidebar wird verwendet."
+    },
+    "footer": {
+      "title": "Fußzeile (3-spaltig)",
+      "description": "Ein responsiver 3-spaltiger Bereich unterhalb des Hauptinhalts — fügen Sie bis zu 3 Blöcke hinzu (einen pro Spalte). Ideal für Webrings, Links oder benutzerdefinierten Inhalt.",
+      "add": "Fußzeilen-Spalte hinzufügen",
+      "empty": "Keine Fußzeilen-Spalten konfiguriert.",
+      "full": "Alle 3 Fußzeilen-Spalten sind gefüllt."
+    },
+    "customContent": {
+      "editTitle": "Benutzerdefinierten Inhalt bearbeiten",
+      "titleLabel": "Titel (optional)",
+      "contentLabel": "Inhalt (HTML oder Text)",
+      "save": "Anwenden",
+      "cancel": "Abbrechen"
+    }
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "homepageBuilder": {
+    "title": "Constructor de página de inicio",
+    "description": "Configure el diseño de su página de inicio, secciones, widgets de la barra lateral y pie de página.",
+    "presets": {
+      "title": "Inicio rápido",
+      "description": "Elija una plantilla para configurar rápidamente su página de inicio. Puede personalizarla más abajo.",
+      "apply": "Aplicar",
+      "active": "Activo",
+      "custom": "Personalizado",
+      "customDescription": "Su propio diseño personalizado"
+    },
+    "saved": "Configuración guardada correctamente. Actualice su página de inicio para ver los cambios.",
+    "save": "Guardar configuración",
+    "layout": {
+      "title": "Diseño",
+      "singleColumn": "Una columna",
+      "twoColumn": "Dos columnas con barra lateral",
+      "fullWidthHero": "Hero a ancho completo + Cuadrícula"
+    },
+    "hero": {
+      "title": "Sección Hero",
+      "enabled": "Mostrar sección hero con información del autor",
+      "showSocial": "Mostrar enlaces sociales en hero"
+    },
+    "sections": {
+      "title": "Secciones de contenido",
+      "description": "Añada y organice secciones que aparecen en el área de contenido principal.",
+      "add": "Añadir sección",
+      "empty": "No hay secciones configuradas. Añada secciones desde el selector a continuación."
+    },
+    "sidebar": {
+      "title": "Widgets de la barra lateral",
+      "description": "Configure widgets que aparecen en la barra lateral (solo visible con diseño de dos columnas).",
+      "add": "Añadir widget",
+      "empty": "No hay widgets configurados. Añada widgets desde el selector a continuación."
+    },
+    "blogListingSidebar": {
+      "title": "Barra lateral del listado de blog",
+      "description": "Configure widgets que aparecen en la barra lateral de las páginas de listado del blog (/blog/, /notes/, /articles/...). Deje vacío para usar widgets predeterminados.",
+      "add": "Añadir widget",
+      "empty": "No hay widgets configurados — usando barra lateral predeterminada."
+    },
+    "blogPostSidebar": {
+      "title": "Barra lateral de entrada de blog",
+      "description": "Configure widgets que aparecen en la barra lateral en páginas de entradas individuales. Deje vacío para usar widgets predeterminados.",
+      "add": "Añadir widget",
+      "empty": "No hay widgets configurados — usando barra lateral predeterminada."
+    },
+    "footer": {
+      "title": "Pie de página (3 columnas)",
+      "description": "Un área adaptable de 3 columnas debajo del contenido principal — añada hasta 3 bloques (uno por columna). Ideal para webrings, enlaces o contenido personalizado.",
+      "add": "Añadir columna de pie",
+      "empty": "No hay columnas de pie configuradas.",
+      "full": "Las 3 columnas de pie están llenas."
+    },
+    "customContent": {
+      "editTitle": "Editar contenido personalizado",
+      "titleLabel": "Título (opcional)",
+      "contentLabel": "Contenido (HTML o texto)",
+      "save": "Aplicar",
+      "cancel": "Cancelar"
+    }
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "homepageBuilder": {
+    "title": "Homepage Bouwer",
+    "description": "Configureer de lay-out van je homepage, secties, zijbalk widgets en voettekst.",
+    "presets": {
+      "title": "Snelstart",
+      "description": "Kies een voorinstelling om snel je homepage te configureren. Je kunt deze hieronder verder aanpassen.",
+      "apply": "Toepassen",
+      "active": "Actief",
+      "custom": "Aangepast",
+      "customDescription": "Je eigen aangepaste lay-out"
+    },
+    "saved": "Configuratie succesvol opgeslagen. Ververs je homepage om de wijzigingen te zien.",
+    "save": "Configuratie Opslaan",
+    "layout": {
+      "title": "Lay-out",
+      "singleColumn": "Enkele Kolom",
+      "twoColumn": "Twee Kolommen met Zijbalk",
+      "fullWidthHero": "Volledige Breedte Hero + Raster"
+    },
+    "hero": {
+      "title": "Hero Sectie",
+      "enabled": "Toon hero sectie met auteur info",
+      "showSocial": "Toon sociale links in hero"
+    },
+    "sections": {
+      "title": "Inhoud Secties",
+      "description": "Voeg secties toe en rangschik ze in het hoofdinhoudsgebied.",
+      "add": "Sectie Toevoegen",
+      "empty": "Geen secties geconfigureerd. Voeg secties toe vanuit de kiezer hieronder."
+    },
+    "sidebar": {
+      "title": "Zijbalk Widgets",
+      "description": "Configureer widgets die in de zijbalk verschijnen (alleen zichtbaar met twee-kolommen lay-out).",
+      "add": "Widget Toevoegen",
+      "empty": "Geen widgets geconfigureerd. Voeg widgets toe vanuit de kiezer hieronder."
+    },
+    "blogListingSidebar": {
+      "title": "Blog Overzicht Zijbalk",
+      "description": "Configureer widgets die in de zijbalk verschijnen op blog overzichtspagina's (/blog/, /notes/, /articles/...). Laat leeg om standaard widgets te gebruiken.",
+      "add": "Widget Toevoegen",
+      "empty": "Geen widgets geconfigureerd — standaard zijbalk wordt gebruikt."
+    },
+    "blogPostSidebar": {
+      "title": "Blog Bericht Zijbalk",
+      "description": "Configureer widgets die in de zijbalk verschijnen op individuele berichtpagina's. Laat leeg om standaard widgets te gebruiken.",
+      "add": "Widget Toevoegen",
+      "empty": "Geen widgets geconfigureerd — standaard zijbalk wordt gebruikt."
+    },
+    "footer": {
+      "title": "Voettekst (3-koloms)",
+      "description": "Een responsive 3-koloms gebied onder de hoofdinhoud — voeg tot 3 blokken toe (één per kolom). Ideaal voor webrings, links of aangepaste inhoud.",
+      "add": "Voettekst Kolom Toevoegen",
+      "empty": "Geen voettekst kolommen geconfigureerd.",
+      "full": "Alle 3 voettekst kolommen zijn gevuld."
+    },
+    "customContent": {
+      "editTitle": "Aangepaste Inhoud Bewerken",
+      "titleLabel": "Titel (optioneel)",
+      "contentLabel": "Inhoud (HTML of tekst)",
+      "save": "Toepassen",
+      "cancel": "Annuleren"
+    }
+  }
+}

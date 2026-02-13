@@ -1,0 +1,65 @@
+{
+  "homepageBuilder": {
+    "title": "Startsidebyggare",
+    "description": "Konfigurera din startsidas layout, sektioner, sidopanelswidgets och sidfot.",
+    "presets": {
+      "title": "Snabbstart",
+      "description": "Välj en förinställning för att snabbt konfigurera din startsida. Du kan anpassa den ytterligare nedan.",
+      "apply": "Tillämpa",
+      "active": "Aktiv",
+      "custom": "Anpassad",
+      "customDescription": "Din egen anpassade layout"
+    },
+    "saved": "Konfiguration sparad framgångsrikt. Uppdatera din startsida för att se ändringarna.",
+    "save": "Spara Konfiguration",
+    "layout": {
+      "title": "Layout",
+      "singleColumn": "Enkel Kolumn",
+      "twoColumn": "Två Kolumner med Sidopanel",
+      "fullWidthHero": "Hero i Full Bredd + Rutnät"
+    },
+    "hero": {
+      "title": "Hero-sektion",
+      "enabled": "Visa hero-sektion med författarinfo",
+      "showSocial": "Visa sociala länkar i hero"
+    },
+    "sections": {
+      "title": "Innehållssektioner",
+      "description": "Lägg till och arrangera sektioner som visas i huvudinnehållsområdet.",
+      "add": "Lägg till Sektion",
+      "empty": "Inga sektioner konfigurerade. Lägg till sektioner från väljaren nedan."
+    },
+    "sidebar": {
+      "title": "Sidopanelswidgets",
+      "description": "Konfigurera widgets som visas i sidopanelen (endast synliga med två-kolumners layout).",
+      "add": "Lägg till Widget",
+      "empty": "Inga widgets konfigurerade. Lägg till widgets från väljaren nedan."
+    },
+    "blogListingSidebar": {
+      "title": "Blogglistnings Sidopanel",
+      "description": "Konfigurera widgets som visas i sidopanelen på blogglistningssidor (/blog/, /notes/, /articles/...). Lämna tom för att använda standardwidgets.",
+      "add": "Lägg till Widget",
+      "empty": "Inga widgets konfigurerade — använder standardsidopanel."
+    },
+    "blogPostSidebar": {
+      "title": "Blogginläggs Sidopanel",
+      "description": "Konfigurera widgets som visas i sidopanelen på enskilda inläggssidor. Lämna tom för att använda standardwidgets.",
+      "add": "Lägg till Widget",
+      "empty": "Inga widgets konfigurerade — använder standardsidopanel."
+    },
+    "footer": {
+      "title": "Sidfot (3-kolumners)",
+      "description": "Ett responsivt 3-kolumners område under huvudinnehållet — lägg till upp till 3 block (ett per kolumn). Perfekt för webrings, länkar eller anpassat innehåll.",
+      "add": "Lägg till Sidfots Kolumn",
+      "empty": "Inga sidfots kolumner konfigurerade.",
+      "full": "Alla 3 sidfots kolumner är fyllda."
+    },
+    "customContent": {
+      "editTitle": "Redigera Anpassat Innehåll",
+      "titleLabel": "Titel (valfritt)",
+      "contentLabel": "Innehåll (HTML eller text)",
+      "save": "Tillämpa",
+      "cancel": "Avbryt"
+    }
+  }
+}

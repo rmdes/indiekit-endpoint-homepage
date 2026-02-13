@@ -1,0 +1,65 @@
+{
+  "homepageBuilder": {
+    "title": "Construtor de Página Inicial",
+    "description": "Configure o layout da sua página inicial, secções, widgets da barra lateral e rodapé.",
+    "presets": {
+      "title": "Início Rápido",
+      "description": "Escolha um preset para configurar rapidamente a sua página inicial. Pode personalizá-la mais abaixo.",
+      "apply": "Aplicar",
+      "active": "Ativo",
+      "custom": "Personalizado",
+      "customDescription": "O seu próprio layout personalizado"
+    },
+    "saved": "Configuração guardada com sucesso. Atualize a sua página inicial para ver as alterações.",
+    "save": "Guardar Configuração",
+    "layout": {
+      "title": "Layout",
+      "singleColumn": "Coluna Única",
+      "twoColumn": "Duas Colunas com Barra Lateral",
+      "fullWidthHero": "Hero Largura Total + Grelha"
+    },
+    "hero": {
+      "title": "Secção Hero",
+      "enabled": "Mostrar secção hero com informação do autor",
+      "showSocial": "Mostrar ligações sociais no hero"
+    },
+    "sections": {
+      "title": "Secções de Conteúdo",
+      "description": "Adicione e organize secções que aparecem na área de conteúdo principal.",
+      "add": "Adicionar Secção",
+      "empty": "Nenhuma secção configurada. Adicione secções a partir do seletor abaixo."
+    },
+    "sidebar": {
+      "title": "Widgets da Barra Lateral",
+      "description": "Configure widgets que aparecem na barra lateral (visível apenas com layout de duas colunas).",
+      "add": "Adicionar Widget",
+      "empty": "Nenhum widget configurado. Adicione widgets a partir do seletor abaixo."
+    },
+    "blogListingSidebar": {
+      "title": "Barra Lateral de Listagem de Blog",
+      "description": "Configure widgets que aparecem na barra lateral nas páginas de listagem de blog (/blog/, /notes/, /articles/...). Deixe vazio para usar widgets predefinidos.",
+      "add": "Adicionar Widget",
+      "empty": "Nenhum widget configurado — a usar barra lateral predefinida."
+    },
+    "blogPostSidebar": {
+      "title": "Barra Lateral de Publicação de Blog",
+      "description": "Configure widgets que aparecem na barra lateral nas páginas de publicações individuais. Deixe vazio para usar widgets predefinidos.",
+      "add": "Adicionar Widget",
+      "empty": "Nenhum widget configurado — a usar barra lateral predefinida."
+    },
+    "footer": {
+      "title": "Rodapé (3 colunas)",
+      "description": "Uma área responsiva de 3 colunas abaixo do conteúdo principal — adicione até 3 blocos (um por coluna). Ideal para webrings, ligações ou conteúdo personalizado.",
+      "add": "Adicionar Coluna de Rodapé",
+      "empty": "Nenhuma coluna de rodapé configurada.",
+      "full": "Todas as 3 colunas de rodapé estão preenchidas."
+    },
+    "customContent": {
+      "editTitle": "Editar Conteúdo Personalizado",
+      "titleLabel": "Título (opcional)",
+      "contentLabel": "Conteúdo (HTML ou texto)",
+      "save": "Aplicar",
+      "cancel": "Cancelar"
+    }
+  }
+}
