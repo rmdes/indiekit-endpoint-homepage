@@ -1,6 +1,6 @@
 {
   "name": "@rmdes/indiekit-endpoint-homepage",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "description": "Homepage builder endpoint for Indiekit. Configure layout, sections, and sidebar widgets from the admin UI.",
   "keywords": [
     "indiekit",

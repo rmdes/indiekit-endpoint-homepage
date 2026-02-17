@@ -246,6 +246,14 @@ export default class HomepageEndpoint {
         configSchema: {},
       },
       {
+        id: "feedland",
+        label: "FeedLand",
+        description: "FeedLand blogroll widget",
+        icon: "rss",
+        defaultConfig: {},
+        configSchema: {},
+      },
+      {
         id: "webmentions",
         label: "Webmentions",
         description: "Recent inbound/outbound webmentions",
