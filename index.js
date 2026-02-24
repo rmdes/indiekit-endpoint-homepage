@@ -270,6 +270,14 @@ export default class HomepageEndpoint {
         configSchema: {},
       },
       {
+        id: "fediverse-follow",
+        label: "Fediverse Follow",
+        description: "Follow button for fediverse instances",
+        icon: "globe",
+        defaultConfig: {},
+        configSchema: {},
+      },
+      {
         id: "custom-html",
         label: "Custom Content",
         description: "Freeform HTML or text block",
