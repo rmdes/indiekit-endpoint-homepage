@@ -1,0 +1,40 @@
+{# Tab navigation for homepage admin - server-rendered URL tabs #}
+<style>
+  .hp-tab-nav {
+    display: flex;
+    gap: 0;
+    border-bottom: 2px solid var(--color-outline-variant, #ddd);
+    margin-block-end: var(--space-xl, 2rem);
+  }
+  .hp-tab-nav__item {
+    padding: var(--space-s, 0.75rem) var(--space-m, 1.25rem);
+    text-decoration: none;
+    color: var(--color-on-offset, #666);
+    font-weight: 500;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .hp-tab-nav__item:hover {
+    color: var(--color-primary, #0066cc);
+  }
+  .hp-tab-nav__item--active {
+    color: var(--color-primary, #0066cc);
+    border-bottom-color: var(--color-primary, #0066cc);
+    font-weight: 600;
+  }
+</style>
+<nav class="hp-tab-nav" aria-label="Homepage settings">
+  <a href="{{ homepageEndpoint }}"
+     class="hp-tab-nav__item{% if activeTab == 'builder' %} hp-tab-nav__item--active{% endif %}">
+    {{ __("homepageBuilder.tabs.builder") }}
+  </a>
+  <a href="{{ homepageEndpoint }}/blog-sidebar"
+     class="hp-tab-nav__item{% if activeTab == 'blog-sidebar' %} hp-tab-nav__item--active{% endif %}">
+    {{ __("homepageBuilder.tabs.blogSidebar") }}
+  </a>
+  <a href="{{ homepageEndpoint }}/identity"
+     class="hp-tab-nav__item{% if activeTab == 'identity' %} hp-tab-nav__item--active{% endif %}">
+    {{ __("homepageBuilder.tabs.identity") }}
+  </a>
+</nav>

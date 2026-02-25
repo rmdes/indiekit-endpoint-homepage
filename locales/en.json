@@ -2,6 +2,11 @@
   "homepageBuilder": {
     "title": "Homepage Builder",
     "description": "Configure your homepage layout, sections, sidebar widgets, and footer.",
+    "tabs": {
+      "builder": "Homepage",
+      "blogSidebar": "Blog Sidebar",
+      "identity": "Identity"
+    },
     "presets": {
       "title": "Quick Start",
       "description": "Choose a preset to quickly configure your homepage. You can customize it further below.",
@@ -60,6 +65,44 @@
       "contentLabel": "Content (HTML or text)",
       "save": "Apply",
       "cancel": "Cancel"
+    },
+    "identity": {
+      "title": "Identity",
+      "description": "Configure your author profile, contact details, and social links. These override environment variable defaults.",
+      "saved": "Identity saved successfully. Refresh your site to see changes.",
+      "profile": {
+        "legend": "Profile",
+        "name": { "label": "Name", "hint": "Your display name" },
+        "avatar": { "label": "Avatar URL", "hint": "URL to your avatar image" },
+        "title": { "label": "Title", "hint": "Job title or subtitle" },
+        "pronoun": { "label": "Pronoun", "hint": "e.g. he/him, she/her, they/them" },
+        "bio": { "label": "Bio", "hint": "Short biography" },
+        "description": { "label": "Site Description", "hint": "Description shown in the hero section" }
+      },
+      "location": {
+        "legend": "Location",
+        "locality": { "label": "City", "hint": "City or locality" },
+        "country": { "label": "Country" },
+        "org": { "label": "Organization", "hint": "Company or organization" }
+      },
+      "contact": {
+        "legend": "Contact",
+        "url": { "label": "URL", "hint": "Your personal website URL" },
+        "email": { "label": "Email" },
+        "keyUrl": { "label": "PGP Key URL", "hint": "URL to your public PGP key" }
+      },
+      "skills": {
+        "legend": "Skills & Interests",
+        "categories": { "label": "Categories", "hint": "Comma-separated skills, interests, or tags" }
+      },
+      "social": {
+        "legend": "Social Links",
+        "description": "Add links to your social profiles. These appear in the hero section and h-card.",
+        "name": { "label": "Name" },
+        "url": { "label": "URL" },
+        "rel": { "label": "Rel" },
+        "icon": { "label": "Icon" }
+      }
     }
   }
 }

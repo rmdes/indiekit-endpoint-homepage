@@ -372,6 +372,14 @@ export default class HomepageEndpoint {
     // Get current config
     protectedRouter.get("/api/config", apiController.getConfig);
 
+    // Blog sidebar tab
+    protectedRouter.get("/blog-sidebar", dashboardController.getBlogSidebar);
+    protectedRouter.post("/save-blog-sidebar", dashboardController.saveBlogSidebar);
+
+    // Identity tab
+    protectedRouter.get("/identity", dashboardController.getIdentity);
+    protectedRouter.post("/save-identity", dashboardController.saveIdentity);
+
     return protectedRouter;
   }
 

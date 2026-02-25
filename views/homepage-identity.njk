@@ -1,0 +1,293 @@
+{% extends "document.njk" %}
+
+{% block content %}
+<style>
+  .hp-identity {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl, 2rem);
+  }
+
+  .hp-section {
+    background: var(--color-offset, #f5f5f5);
+    border-radius: var(--border-radius-small, 0.5rem);
+    padding: var(--space-m, 1.5rem);
+  }
+
+  .hp-section h2 {
+    font: var(--font-heading, bold 1.25rem/1.4 sans-serif);
+    margin-block-end: var(--space-s, 0.75rem);
+    padding-block-end: var(--space-xs, 0.5rem);
+    border-block-end: 1px solid var(--color-outline-variant, #ddd);
+  }
+
+  .hp-section__desc {
+    color: var(--color-on-offset, #666);
+    font: var(--font-body, 0.875rem/1.5 sans-serif);
+    margin-block-end: var(--space-s, 0.75rem);
+  }
+
+  .hp-success {
+    background: var(--color-success-container, #d4edda);
+    border: 1px solid var(--color-success, #28a745);
+    border-radius: var(--border-radius-small, 0.25rem);
+    padding: var(--space-s, 0.75rem);
+    margin-block-end: var(--space-m, 1rem);
+  }
+
+  .hp-field-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-s, 0.75rem);
+  }
+
+  .hp-field-grid .field--full {
+    grid-column: 1 / -1;
+  }
+
+  .hp-social-row {
+    display: grid;
+    grid-template-columns: 1fr 2fr 0.7fr 0.8fr auto;
+    gap: var(--space-xs, 0.5rem);
+    align-items: end;
+    padding: var(--space-xs, 0.5rem) 0;
+    border-bottom: 1px solid var(--color-outline-variant, #eee);
+  }
+
+  .hp-social-row:last-of-type {
+    border-bottom: none;
+  }
+
+  .hp-social-header {
+    display: grid;
+    grid-template-columns: 1fr 2fr 0.7fr 0.8fr auto;
+    gap: var(--space-xs, 0.5rem);
+    padding: var(--space-xs, 0.5rem) 0;
+    font-weight: 600;
+    font: var(--font-caption, 0.75rem/1.4 sans-serif);
+    font-weight: 600;
+    color: var(--color-on-offset, #666);
+    border-bottom: 2px solid var(--color-outline-variant, #ddd);
+  }
+
+  .hp-social-row input,
+  .hp-social-row select {
+    width: 100%;
+    padding: var(--space-2xs, 0.375rem) var(--space-xs, 0.5rem);
+    border: 1px solid var(--color-outline-variant, #ccc);
+    border-radius: var(--border-radius-small, 0.25rem);
+    font: var(--font-body, 0.875rem/1.5 sans-serif);
+    background: var(--color-background, #fff);
+    color: var(--color-on-surface, inherit);
+  }
+</style>
+
+<header class="page-header">
+  <h1 class="page-header__title">{{ __("homepageBuilder.title") }}</h1>
+  <p class="page-header__description">{{ __("homepageBuilder.description") }}</p>
+</header>
+
+{% include "partials/tab-nav.njk" %}
+
+{% if request.query.saved %}
+<div class="hp-success">
+  <p>{{ __("homepageBuilder.identity.saved") }}</p>
+</div>
+{% endif %}
+
+<form method="post" action="{{ homepageEndpoint }}/save-identity" class="hp-identity" id="identity-form">
+
+  {# Profile Section #}
+  <section class="hp-section">
+    <h2>{{ __("homepageBuilder.identity.profile.legend") }}</h2>
+    <div class="hp-field-grid">
+      <div class="field">
+        <label class="field__label" for="identity-name">{{ __("homepageBuilder.identity.profile.name.label") }}</label>
+        <input class="field__input" type="text" id="identity-name" name="identity-name" value="{{ identity.name or '' }}">
+        <p class="field__hint">{{ __("homepageBuilder.identity.profile.name.hint") }}</p>
+      </div>
+      <div class="field">
+        <label class="field__label" for="identity-title">{{ __("homepageBuilder.identity.profile.title.label") }}</label>
+        <input class="field__input" type="text" id="identity-title" name="identity-title" value="{{ identity.title or '' }}">
+        <p class="field__hint">{{ __("homepageBuilder.identity.profile.title.hint") }}</p>
+      </div>
+      <div class="field field--full">
+        <label class="field__label" for="identity-avatar">{{ __("homepageBuilder.identity.profile.avatar.label") }}</label>
+        <input class="field__input" type="url" id="identity-avatar" name="identity-avatar" value="{{ identity.avatar or '' }}">
+        <p class="field__hint">{{ __("homepageBuilder.identity.profile.avatar.hint") }}</p>
+      </div>
+      <div class="field">
+        <label class="field__label" for="identity-pronoun">{{ __("homepageBuilder.identity.profile.pronoun.label") }}</label>
+        <input class="field__input" type="text" id="identity-pronoun" name="identity-pronoun" value="{{ identity.pronoun or '' }}">
+        <p class="field__hint">{{ __("homepageBuilder.identity.profile.pronoun.hint") }}</p>
+      </div>
+      <div class="field" style="visibility: hidden;"></div>
+      <div class="field field--full">
+        <label class="field__label" for="identity-bio">{{ __("homepageBuilder.identity.profile.bio.label") }}</label>
+        <textarea class="field__input" id="identity-bio" name="identity-bio" rows="3">{{ identity.bio or '' }}</textarea>
+        <p class="field__hint">{{ __("homepageBuilder.identity.profile.bio.hint") }}</p>
+      </div>
+      <div class="field field--full">
+        <label class="field__label" for="identity-description">{{ __("homepageBuilder.identity.profile.description.label") }}</label>
+        <textarea class="field__input" id="identity-description" name="identity-description" rows="3">{{ identity.description or '' }}</textarea>
+        <p class="field__hint">{{ __("homepageBuilder.identity.profile.description.hint") }}</p>
+      </div>
+    </div>
+  </section>
+
+  {# Location Section #}
+  <section class="hp-section">
+    <h2>{{ __("homepageBuilder.identity.location.legend") }}</h2>
+    <div class="hp-field-grid">
+      <div class="field">
+        <label class="field__label" for="identity-locality">{{ __("homepageBuilder.identity.location.locality.label") }}</label>
+        <input class="field__input" type="text" id="identity-locality" name="identity-locality" value="{{ identity.locality or '' }}">
+        <p class="field__hint">{{ __("homepageBuilder.identity.location.locality.hint") }}</p>
+      </div>
+      <div class="field">
+        <label class="field__label" for="identity-country">{{ __("homepageBuilder.identity.location.country.label") }}</label>
+        <input class="field__input" type="text" id="identity-country" name="identity-country" value="{{ identity.country or '' }}">
+      </div>
+      <div class="field">
+        <label class="field__label" for="identity-org">{{ __("homepageBuilder.identity.location.org.label") }}</label>
+        <input class="field__input" type="text" id="identity-org" name="identity-org" value="{{ identity.org or '' }}">
+        <p class="field__hint">{{ __("homepageBuilder.identity.location.org.hint") }}</p>
+      </div>
+    </div>
+  </section>
+
+  {# Contact Section #}
+  <section class="hp-section">
+    <h2>{{ __("homepageBuilder.identity.contact.legend") }}</h2>
+    <div class="hp-field-grid">
+      <div class="field field--full">
+        <label class="field__label" for="identity-url">{{ __("homepageBuilder.identity.contact.url.label") }}</label>
+        <input class="field__input" type="url" id="identity-url" name="identity-url" value="{{ identity.url or '' }}">
+        <p class="field__hint">{{ __("homepageBuilder.identity.contact.url.hint") }}</p>
+      </div>
+      <div class="field">
+        <label class="field__label" for="identity-email">{{ __("homepageBuilder.identity.contact.email.label") }}</label>
+        <input class="field__input" type="email" id="identity-email" name="identity-email" value="{{ identity.email or '' }}">
+      </div>
+      <div class="field">
+        <label class="field__label" for="identity-keyUrl">{{ __("homepageBuilder.identity.contact.keyUrl.label") }}</label>
+        <input class="field__input" type="url" id="identity-keyUrl" name="identity-keyUrl" value="{{ identity.keyUrl or '' }}">
+        <p class="field__hint">{{ __("homepageBuilder.identity.contact.keyUrl.hint") }}</p>
+      </div>
+    </div>
+  </section>
+
+  {# Skills Section #}
+  <section class="hp-section">
+    <h2>{{ __("homepageBuilder.identity.skills.legend") }}</h2>
+    <div class="field">
+      <label class="field__label" for="identity-categories">{{ __("homepageBuilder.identity.skills.categories.label") }}</label>
+      <input class="field__input" type="text" id="identity-categories" name="identity-categories" value="{{ identity.categories | join(', ') if identity.categories else '' }}">
+      <p class="field__hint">{{ __("homepageBuilder.identity.skills.categories.hint") }}</p>
+    </div>
+  </section>
+
+  {# Social Links Section #}
+  <section class="hp-section">
+    <h2>{{ __("homepageBuilder.identity.social.legend") }}</h2>
+    <p class="hp-section__desc">{{ __("homepageBuilder.identity.social.description") }}</p>
+
+    <div class="hp-social-header">
+      <span>{{ __("homepageBuilder.identity.social.name.label") }}</span>
+      <span>{{ __("homepageBuilder.identity.social.url.label") }}</span>
+      <span>{{ __("homepageBuilder.identity.social.rel.label") }}</span>
+      <span>{{ __("homepageBuilder.identity.social.icon.label") }}</span>
+      <span></span>
+    </div>
+
+    <div id="social-links-container">
+      {# Populated by JS from identity.social data #}
+    </div>
+
+    <div style="margin-block-start: var(--space-s, 0.75rem);">
+      <button type="button" class="button button--small" id="add-social-link">Add Social Link</button>
+    </div>
+  </section>
+
+  {# Save Button #}
+  <div class="button-group">
+    <button type="submit" class="button button--primary">{{ __("homepageBuilder.save") }}</button>
+  </div>
+</form>
+
+<script>
+  var socialData = {{ identity.social | dump | default('[]') | safe }};
+  var socialContainer = document.getElementById('social-links-container');
+
+  function renderSocialLinks() {
+    socialContainer.textContent = '';
+    socialData.forEach(function(link, index) {
+      socialContainer.appendChild(createSocialRow(link, index));
+    });
+  }
+
+  function createSocialRow(link, index) {
+    var row = document.createElement('div');
+    row.className = 'hp-social-row';
+
+    var nameInput = document.createElement('input');
+    nameInput.type = 'text';
+    nameInput.name = 'social[' + index + '][name]';
+    nameInput.value = link.name || '';
+    nameInput.placeholder = 'GitHub';
+    row.appendChild(nameInput);
+
+    var urlInput = document.createElement('input');
+    urlInput.type = 'url';
+    urlInput.name = 'social[' + index + '][url]';
+    urlInput.value = link.url || '';
+    urlInput.placeholder = 'https://github.com/username';
+    row.appendChild(urlInput);
+
+    var relInput = document.createElement('input');
+    relInput.type = 'text';
+    relInput.name = 'social[' + index + '][rel]';
+    relInput.value = link.rel || 'me';
+    relInput.placeholder = 'me';
+    row.appendChild(relInput);
+
+    var iconSelect = document.createElement('select');
+    iconSelect.name = 'social[' + index + '][icon]';
+    var icons = [
+      { value: '', label: 'None' },
+      { value: 'github', label: 'GitHub' },
+      { value: 'linkedin', label: 'LinkedIn' },
+      { value: 'bluesky', label: 'Bluesky' },
+      { value: 'mastodon', label: 'Mastodon' },
+      { value: 'activitypub', label: 'ActivityPub' }
+    ];
+    icons.forEach(function(icon) {
+      var opt = document.createElement('option');
+      opt.value = icon.value;
+      opt.textContent = icon.label;
+      if (icon.value === (link.icon || '')) opt.selected = true;
+      iconSelect.appendChild(opt);
+    });
+    row.appendChild(iconSelect);
+
+    var removeBtn = document.createElement('button');
+    removeBtn.type = 'button';
+    removeBtn.className = 'button button--small button--secondary';
+    removeBtn.textContent = 'Remove';
+    removeBtn.addEventListener('click', function() {
+      socialData.splice(index, 1);
+      renderSocialLinks();
+    });
+    row.appendChild(removeBtn);
+
+    return row;
+  }
+
+  document.getElementById('add-social-link').addEventListener('click', function() {
+    socialData.push({ name: '', url: '', rel: 'me', icon: '' });
+    renderSocialLinks();
+  });
+
+  renderSocialLinks();
+</script>
+{% endblock %}
