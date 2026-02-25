@@ -91,9 +91,9 @@
         "email": { "label": "Email" },
         "keyUrl": { "label": "PGP Key URL", "hint": "URL to your public PGP key" }
       },
-      "skills": {
-        "legend": "Skills & Interests",
-        "categories": { "label": "Categories", "hint": "Comma-separated skills, interests, or tags" }
+      "categories": {
+        "legend": "Site Categories",
+        "tags": { "label": "Categories", "hint": "Comma-separated tags for your site (rendered as p-category in your h-card)" }
       },
       "social": {
         "legend": "Social Links",
