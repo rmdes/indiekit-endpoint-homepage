@@ -144,6 +144,21 @@ export default class HomepageEndpoint {
         },
       },
       {
+        id: "featured-posts",
+        label: "Featured Posts",
+        description: "Curated posts pinned as featured",
+        icon: "star",
+        dataEndpoint: null, // Uses Eleventy featuredPosts collection
+        defaultConfig: {
+          maxItems: 6,
+          showSummary: true,
+        },
+        configSchema: {
+          maxItems: { type: "number", label: "Max items", min: 1, max: 20 },
+          showSummary: { type: "boolean", label: "Show post summary" },
+        },
+      },
+      {
         id: "recent-posts",
         label: "Recent Posts",
         description: "Latest posts from your blog",
