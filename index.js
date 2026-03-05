@@ -186,6 +186,30 @@ export default class HomepageEndpoint {
           content: { type: "textarea", label: "Content (HTML/Markdown)" },
         },
       },
+      {
+        id: "posting-activity",
+        label: "Posting Activity",
+        description: "GitHub-style contribution graph showing posting frequency",
+        icon: "activity",
+        dataEndpoint: null, // Uses Eleventy collections
+        defaultConfig: {
+          title: "Posting Activity",
+          limit: 1,
+        },
+        configSchema: {
+          title: { type: "text", label: "Section title" },
+          years: {
+            type: "text",
+            label: "Years to show (comma-separated, e.g. 2026,2025)",
+          },
+          limit: {
+            type: "number",
+            label: "Number of years (ignored if specific years set)",
+            min: 0,
+            max: 10,
+          },
+        },
+      },
     ];
   }
 
