@@ -317,6 +317,14 @@ export default class HomepageEndpoint {
         configSchema: {},
       },
       {
+        id: "ai-usage",
+        label: "AI Transparency",
+        description: "Compact AI usage stats and contribution graph",
+        icon: "zap",
+        defaultConfig: {},
+        configSchema: {},
+      },
+      {
         id: "custom-html",
         label: "Custom Content",
         description: "Freeform HTML or text block",
