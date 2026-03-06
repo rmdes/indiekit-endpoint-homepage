@@ -210,6 +210,26 @@ export default class HomepageEndpoint {
           },
         },
       },
+      {
+        id: "ai-usage",
+        label: "AI Transparency",
+        description: "AI usage stats, level breakdown, and contribution graph",
+        icon: "zap",
+        dataEndpoint: null, // Uses Eleventy collections
+        defaultConfig: {
+          title: "AI Transparency",
+          limit: 1,
+        },
+        configSchema: {
+          title: { type: "text", label: "Section title" },
+          limit: {
+            type: "number",
+            label: "Years to show in graph",
+            min: 1,
+            max: 10,
+          },
+        },
+      },
     ];
   }
 
