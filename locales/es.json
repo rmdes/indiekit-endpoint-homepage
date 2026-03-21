@@ -60,6 +60,94 @@
       "contentLabel": "Contenido (HTML o texto)",
       "save": "Aplicar",
       "cancel": "Cancelar"
+    },
+    "tabs": {
+      "builder": "Inicio",
+      "identity": "Identidad",
+      "blogSidebar": "Barra lateral del blog"
+    },
+    "identity": {
+      "title": "Identidad",
+      "description": "Configura tu perfil de autor, datos de contacto y enlaces sociales. Estos sustituyen los valores predeterminados de las variables de entorno.",
+      "saved": "Identidad guardada correctamente. Actualiza tu sitio para ver los cambios.",
+      "profile": {
+        "legend": "Perfil",
+        "name": {
+          "label": "Nombre",
+          "hint": "Tu nombre para mostrar"
+        },
+        "pronoun": {
+          "label": "Pronombre",
+          "hint": "p. ej. él, ella, elle"
+        },
+        "title": {
+          "label": "Título",
+          "hint": "Cargo o subtítulo"
+        },
+        "bio": {
+          "label": "Bio",
+          "hint": "Biografía corta"
+        },
+        "description": {
+          "label": "Descripción del sitio",
+          "hint": "Descripción mostrada en la sección hero"
+        },
+        "avatar": {
+          "label": "URL del avatar",
+          "hint": "URL de tu imagen de avatar"
+        }
+      },
+      "contact": {
+        "legend": "Contacto",
+        "email": {
+          "label": "Correo electrónico"
+        },
+        "url": {
+          "label": "URL",
+          "hint": "URL de tu sitio web personal"
+        },
+        "keyUrl": {
+          "label": "URL de clave PGP",
+          "hint": "URL de tu clave PGP pública"
+        }
+      },
+      "location": {
+        "legend": "Ubicación",
+        "locality": {
+          "label": "Ciudad",
+          "hint": "Ciudad o localidad"
+        },
+        "country": {
+          "label": "País"
+        },
+        "org": {
+          "label": "Organización",
+          "hint": "Empresa u organización"
+        }
+      },
+      "social": {
+        "legend": "Enlaces sociales",
+        "description": "Añade enlaces a tus perfiles sociales. Aparecen en la sección hero y en la h-card.",
+        "name": {
+          "label": "Nombre"
+        },
+        "url": {
+          "label": "URL"
+        },
+        "icon": {
+          "label": "Icono"
+        },
+        "rel": {
+          "label": "Rel"
+        }
+      },
+      "categories": {
+        "legend": "Categorías del sitio",
+        "tags": {
+          "label": "Categorías",
+          "hint": "Etiquetas separadas por coma para tu sitio (se muestran como p-category en tu h-card)"
+        }
+      }
     }
   }
 }

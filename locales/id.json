@@ -60,6 +60,94 @@
       "contentLabel": "Konten (HTML atau teks)",
       "save": "Terapkan",
       "cancel": "Batal"
+    },
+    "tabs": {
+      "builder": "Beranda",
+      "identity": "Identitas",
+      "blogSidebar": "Bilah Sisi Blog"
+    },
+    "identity": {
+      "title": "Identitas",
+      "description": "Konfigurasikan profil penulis, detail kontak, dan tautan sosial Anda. Ini mengganti nilai default variabel lingkungan.",
+      "saved": "Identitas berhasil disimpan. Segarkan situs Anda untuk melihat perubahan.",
+      "profile": {
+        "legend": "Profil",
+        "name": {
+          "label": "Nama",
+          "hint": "Nama tampilan Anda"
+        },
+        "pronoun": {
+          "label": "Kata ganti",
+          "hint": "mis. dia, mereka"
+        },
+        "title": {
+          "label": "Judul",
+          "hint": "Jabatan atau subjudul"
+        },
+        "bio": {
+          "label": "Bio",
+          "hint": "Biografi singkat"
+        },
+        "description": {
+          "label": "Deskripsi Situs",
+          "hint": "Deskripsi yang ditampilkan di bagian hero"
+        },
+        "avatar": {
+          "label": "URL Avatar",
+          "hint": "URL ke gambar avatar Anda"
+        }
+      },
+      "contact": {
+        "legend": "Kontak",
+        "email": {
+          "label": "Email"
+        },
+        "url": {
+          "label": "URL",
+          "hint": "URL situs web pribadi Anda"
+        },
+        "keyUrl": {
+          "label": "URL Kunci PGP",
+          "hint": "URL ke kunci PGP publik Anda"
+        }
+      },
+      "location": {
+        "legend": "Lokasi",
+        "locality": {
+          "label": "Kota",
+          "hint": "Kota atau lokalitas"
+        },
+        "country": {
+          "label": "Negara"
+        },
+        "org": {
+          "label": "Organisasi",
+          "hint": "Perusahaan atau organisasi"
+        }
+      },
+      "social": {
+        "legend": "Tautan Sosial",
+        "description": "Tambahkan tautan ke profil sosial Anda. Ini muncul di bagian hero dan h-card.",
+        "name": {
+          "label": "Nama"
+        },
+        "url": {
+          "label": "URL"
+        },
+        "icon": {
+          "label": "Ikon"
+        },
+        "rel": {
+          "label": "Rel"
+        }
+      },
+      "categories": {
+        "legend": "Kategori Situs",
+        "tags": {
+          "label": "Kategori",
+          "hint": "Tag yang dipisahkan koma untuk situs Anda (ditampilkan sebagai p-category di h-card Anda)"
+        }
+      }
     }
   }
 }

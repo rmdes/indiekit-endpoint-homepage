@@ -60,6 +60,94 @@
       "contentLabel": "Innehåll (HTML eller text)",
       "save": "Tillämpa",
       "cancel": "Avbryt"
+    },
+    "tabs": {
+      "builder": "Startsida",
+      "identity": "Identitet",
+      "blogSidebar": "Bloggens sidofält"
+    },
+    "identity": {
+      "title": "Identitet",
+      "description": "Konfigurera din författarprofil, kontaktuppgifter och sociala länkar. Dessa åsidosätter standardvärden från miljövariabler.",
+      "saved": "Identitet sparad. Uppdatera din webbplats för att se ändringarna.",
+      "profile": {
+        "legend": "Profil",
+        "name": {
+          "label": "Namn",
+          "hint": "Ditt visningsnamn"
+        },
+        "pronoun": {
+          "label": "Pronomen",
+          "hint": "t.ex. han/honom, hon/henne, hen"
+        },
+        "title": {
+          "label": "Titel",
+          "hint": "Jobbtitel eller undertitel"
+        },
+        "bio": {
+          "label": "Bio",
+          "hint": "Kort biografi"
+        },
+        "description": {
+          "label": "Webbplatsbeskrivning",
+          "hint": "Beskrivning som visas i hero-sektionen"
+        },
+        "avatar": {
+          "label": "Avatar-URL",
+          "hint": "URL till din avatarbild"
+        }
+      },
+      "contact": {
+        "legend": "Kontakt",
+        "email": {
+          "label": "E-post"
+        },
+        "url": {
+          "label": "URL",
+          "hint": "URL till din personliga webbplats"
+        },
+        "keyUrl": {
+          "label": "PGP-nyckel-URL",
+          "hint": "URL till din offentliga PGP-nyckel"
+        }
+      },
+      "location": {
+        "legend": "Plats",
+        "locality": {
+          "label": "Stad",
+          "hint": "Stad eller ort"
+        },
+        "country": {
+          "label": "Land"
+        },
+        "org": {
+          "label": "Organisation",
+          "hint": "Företag eller organisation"
+        }
+      },
+      "social": {
+        "legend": "Sociala länkar",
+        "description": "Lägg till länkar till dina sociala profiler. Dessa visas i hero-sektionen och h-card.",
+        "name": {
+          "label": "Namn"
+        },
+        "url": {
+          "label": "URL"
+        },
+        "icon": {
+          "label": "Ikon"
+        },
+        "rel": {
+          "label": "Rel"
+        }
+      },
+      "categories": {
+        "legend": "Webbplatskategorier",
+        "tags": {
+          "label": "Kategorier",
+          "hint": "Kommaseparerade taggar för din webbplats (visas som p-category i din h-card)"
+        }
+      }
     }
   }
 }

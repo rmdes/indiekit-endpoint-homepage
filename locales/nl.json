@@ -60,6 +60,94 @@
       "contentLabel": "Inhoud (HTML of tekst)",
       "save": "Toepassen",
       "cancel": "Annuleren"
+    },
+    "tabs": {
+      "builder": "Startpagina",
+      "identity": "Identiteit",
+      "blogSidebar": "Blog-zijbalk"
+    },
+    "identity": {
+      "title": "Identiteit",
+      "description": "Configureer je auteursprofiel, contactgegevens en sociale links. Deze overschrijven de standaardwaarden van omgevingsvariabelen.",
+      "saved": "Identiteit succesvol opgeslagen. Vernieuw je site om de wijzigingen te zien.",
+      "profile": {
+        "legend": "Profiel",
+        "name": {
+          "label": "Naam",
+          "hint": "Je weergavenaam"
+        },
+        "pronoun": {
+          "label": "Voornaamwoord",
+          "hint": "bijv. hij/hem, zij/haar, hen/hun"
+        },
+        "title": {
+          "label": "Titel",
+          "hint": "Functietitel of ondertitel"
+        },
+        "bio": {
+          "label": "Bio",
+          "hint": "Korte biografie"
+        },
+        "description": {
+          "label": "Sitebeschrijving",
+          "hint": "Beschrijving getoond in het hero-gedeelte"
+        },
+        "avatar": {
+          "label": "Avatar-URL",
+          "hint": "URL naar je avatarfoto"
+        }
+      },
+      "contact": {
+        "legend": "Contact",
+        "email": {
+          "label": "E-mail"
+        },
+        "url": {
+          "label": "URL",
+          "hint": "URL van je persoonlijke website"
+        },
+        "keyUrl": {
+          "label": "PGP-sleutel-URL",
+          "hint": "URL naar je openbare PGP-sleutel"
+        }
+      },
+      "location": {
+        "legend": "Locatie",
+        "locality": {
+          "label": "Stad",
+          "hint": "Stad of plaats"
+        },
+        "country": {
+          "label": "Land"
+        },
+        "org": {
+          "label": "Organisatie",
+          "hint": "Bedrijf of organisatie"
+        }
+      },
+      "social": {
+        "legend": "Sociale links",
+        "description": "Voeg links naar je sociale profielen toe. Deze verschijnen in het hero-gedeelte en de h-card.",
+        "name": {
+          "label": "Naam"
+        },
+        "url": {
+          "label": "URL"
+        },
+        "icon": {
+          "label": "Pictogram"
+        },
+        "rel": {
+          "label": "Rel"
+        }
+      },
+      "categories": {
+        "legend": "Sitecategorieën",
+        "tags": {
+          "label": "Categorieën",
+          "hint": "Door komma's gescheiden tags voor je site (weergegeven als p-category in je h-card)"
+        }
+      }
     }
   }
 }

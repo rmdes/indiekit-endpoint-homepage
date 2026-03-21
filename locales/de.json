@@ -60,6 +60,94 @@
       "contentLabel": "Inhalt (HTML oder Text)",
       "save": "Anwenden",
       "cancel": "Abbrechen"
+    },
+    "tabs": {
+      "builder": "Homepage",
+      "identity": "Identität",
+      "blogSidebar": "Blog-Sidebar"
+    },
+    "identity": {
+      "title": "Identität",
+      "description": "Konfigurieren Sie Ihr Autorenprofil, Kontaktdaten und soziale Links. Diese überschreiben die Standardwerte der Umgebungsvariablen.",
+      "saved": "Identität erfolgreich gespeichert. Aktualisieren Sie Ihre Seite, um die Änderungen zu sehen.",
+      "profile": {
+        "legend": "Profil",
+        "name": {
+          "label": "Name",
+          "hint": "Ihr Anzeigename"
+        },
+        "pronoun": {
+          "label": "Pronomen",
+          "hint": "z.B. er/ihm, sie/ihr, sie/ihnen"
+        },
+        "title": {
+          "label": "Titel",
+          "hint": "Berufsbezeichnung oder Untertitel"
+        },
+        "bio": {
+          "label": "Bio",
+          "hint": "Kurze Biografie"
+        },
+        "description": {
+          "label": "Seitenbeschreibung",
+          "hint": "Beschreibung im Hero-Bereich"
+        },
+        "avatar": {
+          "label": "Avatar-URL",
+          "hint": "URL zu Ihrem Avatar-Bild"
+        }
+      },
+      "contact": {
+        "legend": "Kontakt",
+        "email": {
+          "label": "E-Mail"
+        },
+        "url": {
+          "label": "URL",
+          "hint": "Ihre persönliche Website-URL"
+        },
+        "keyUrl": {
+          "label": "PGP-Schlüssel-URL",
+          "hint": "URL zu Ihrem öffentlichen PGP-Schlüssel"
+        }
+      },
+      "location": {
+        "legend": "Standort",
+        "locality": {
+          "label": "Stadt",
+          "hint": "Stadt oder Ortschaft"
+        },
+        "country": {
+          "label": "Land"
+        },
+        "org": {
+          "label": "Organisation",
+          "hint": "Firma oder Organisation"
+        }
+      },
+      "social": {
+        "legend": "Soziale Links",
+        "description": "Fügen Sie Links zu Ihren sozialen Profilen hinzu. Diese erscheinen im Hero-Bereich und in der h-card.",
+        "name": {
+          "label": "Name"
+        },
+        "url": {
+          "label": "URL"
+        },
+        "icon": {
+          "label": "Symbol"
+        },
+        "rel": {
+          "label": "Rel"
+        }
+      },
+      "categories": {
+        "legend": "Seiten-Kategorien",
+        "tags": {
+          "label": "Kategorien",
+          "hint": "Kommagetrennte Tags für Ihre Seite (werden als p-category in Ihrer h-card dargestellt)"
+        }
+      }
     }
   }
 }

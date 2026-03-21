@@ -60,6 +60,94 @@
       "contentLabel": "Treść (HTML lub tekst)",
       "save": "Zastosuj",
       "cancel": "Anuluj"
+    },
+    "tabs": {
+      "builder": "Strona główna",
+      "identity": "Tożsamość",
+      "blogSidebar": "Pasek boczny bloga"
+    },
+    "identity": {
+      "title": "Tożsamość",
+      "description": "Skonfiguruj swój profil autora, dane kontaktowe i linki społecznościowe. Zastępują one domyślne wartości zmiennych środowiskowych.",
+      "saved": "Tożsamość zapisana pomyślnie. Odśwież swoją stronę, aby zobaczyć zmiany.",
+      "profile": {
+        "legend": "Profil",
+        "name": {
+          "label": "Imię",
+          "hint": "Twoje wyświetlane imię"
+        },
+        "pronoun": {
+          "label": "Zaimek",
+          "hint": "np. on/jego, ona/jej, oni/ich"
+        },
+        "title": {
+          "label": "Tytuł",
+          "hint": "Stanowisko lub podtytuł"
+        },
+        "bio": {
+          "label": "Bio",
+          "hint": "Krótka biografia"
+        },
+        "description": {
+          "label": "Opis strony",
+          "hint": "Opis wyświetlany w sekcji hero"
+        },
+        "avatar": {
+          "label": "URL awatara",
+          "hint": "URL do obrazu awatara"
+        }
+      },
+      "contact": {
+        "legend": "Kontakt",
+        "email": {
+          "label": "E-mail"
+        },
+        "url": {
+          "label": "URL",
+          "hint": "URL twojej strony osobistej"
+        },
+        "keyUrl": {
+          "label": "URL klucza PGP",
+          "hint": "URL do publicznego klucza PGP"
+        }
+      },
+      "location": {
+        "legend": "Lokalizacja",
+        "locality": {
+          "label": "Miasto",
+          "hint": "Miasto lub miejscowość"
+        },
+        "country": {
+          "label": "Kraj"
+        },
+        "org": {
+          "label": "Organizacja",
+          "hint": "Firma lub organizacja"
+        }
+      },
+      "social": {
+        "legend": "Linki społecznościowe",
+        "description": "Dodaj linki do swoich profili społecznościowych. Pojawiają się w sekcji hero i h-card.",
+        "name": {
+          "label": "Nazwa"
+        },
+        "url": {
+          "label": "URL"
+        },
+        "icon": {
+          "label": "Ikona"
+        },
+        "rel": {
+          "label": "Rel"
+        }
+      },
+      "categories": {
+        "legend": "Kategorie strony",
+        "tags": {
+          "label": "Kategorie",
+          "hint": "Tagi oddzielone przecinkami dla twojej strony (wyświetlane jako p-category w h-card)"
+        }
+      }
     }
   }
 }

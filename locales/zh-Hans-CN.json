@@ -60,6 +60,94 @@
       "contentLabel": "内容（HTML 或文本）",
       "save": "应用",
       "cancel": "取消"
+    },
+    "tabs": {
+      "builder": "首页",
+      "identity": "身份",
+      "blogSidebar": "博客侧边栏"
+    },
+    "identity": {
+      "title": "身份",
+      "description": "配置您的作者资料、联系方式和社交链接。这些将覆盖环境变量的默认值。",
+      "saved": "身份信息保存成功。刷新您的网站以查看更改。",
+      "profile": {
+        "legend": "个人资料",
+        "name": {
+          "label": "姓名",
+          "hint": "您的显示名称"
+        },
+        "pronoun": {
+          "label": "代词",
+          "hint": "例如 他/他的、她/她的"
+        },
+        "title": {
+          "label": "头衔",
+          "hint": "职位或副标题"
+        },
+        "bio": {
+          "label": "简介",
+          "hint": "简短的个人简介"
+        },
+        "description": {
+          "label": "网站描述",
+          "hint": "在 hero 区域显示的描述"
+        },
+        "avatar": {
+          "label": "头像 URL",
+          "hint": "您的头像图片 URL"
+        }
+      },
+      "contact": {
+        "legend": "联系方式",
+        "email": {
+          "label": "电子邮件"
+        },
+        "url": {
+          "label": "URL",
+          "hint": "您的个人网站 URL"
+        },
+        "keyUrl": {
+          "label": "PGP 密钥 URL",
+          "hint": "您的公共 PGP 密钥 URL"
+        }
+      },
+      "location": {
+        "legend": "位置",
+        "locality": {
+          "label": "城市",
+          "hint": "城市或地区"
+        },
+        "country": {
+          "label": "国家"
+        },
+        "org": {
+          "label": "组织",
+          "hint": "公司或组织"
+        }
+      },
+      "social": {
+        "legend": "社交链接",
+        "description": "添加您的社交资料链接。这些将显示在 hero 区域和 h-card 中。",
+        "name": {
+          "label": "名称"
+        },
+        "url": {
+          "label": "URL"
+        },
+        "icon": {
+          "label": "图标"
+        },
+        "rel": {
+          "label": "Rel"
+        }
+      },
+      "categories": {
+        "legend": "网站分类",
+        "tags": {
+          "label": "分类",
+          "hint": "以逗号分隔的网站标签（在您的 h-card 中显示为 p-category）"
+        }
+      }
     }
   }
 }
