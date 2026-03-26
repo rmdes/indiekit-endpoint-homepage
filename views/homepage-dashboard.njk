@@ -532,10 +532,12 @@
   // Create a list item element for a section/widget/footer item
   function createItemElement(item, labels, removeFn, editFn) {
     var isCustom = (item.type === 'custom-html');
+    var isRecentPosts = (item.type === 'recent-posts');
+    var isEditable = isCustom || isRecentPosts;
     var container = document.createDocumentFragment();
 
     var li = document.createElement('li');
-    li.className = 'hp-section-item' + (isCustom ? ' hp-section-item--has-edit' : '');
+    li.className = 'hp-section-item' + (isEditable ? ' hp-section-item--has-edit' : '');
     li.dataset.key = item._key;
     li.dataset.type = item.type;
 
@@ -564,12 +566,27 @@
       info.appendChild(preview);
     }
 
+    // Show config preview for recent-posts
+    if (isRecentPosts && item.config) {
+      var rpPreview = document.createElement('div');
+      rpPreview.className = 'hp-section-item__preview';
+      var parts = [];
+      if (item.config.maxItems) parts.push(item.config.maxItems + ' items');
+      if (item.config.excludeTypes && item.config.excludeTypes.length) {
+        parts.push('excluding: ' + item.config.excludeTypes.join(', '));
+      }
+      if (parts.length) {
+        rpPreview.textContent = parts.join(' · ');
+        info.appendChild(rpPreview);
+      }
+    }
+
     li.appendChild(info);
 
     var actions = document.createElement('div');
     actions.className = 'hp-section-item__actions';
 
-    if (isCustom) {
+    if (isEditable) {
       var editBtn = document.createElement('button');
       editBtn.type = 'button';
       editBtn.className = 'button button--small';
@@ -655,6 +672,95 @@
       details.appendChild(buttons);
 
       container.appendChild(details);
+    }
+
+    // Edit panel for recent-posts
+    if (isRecentPosts) {
+      var rpDetails = document.createElement('details');
+      rpDetails.className = 'hp-edit-panel';
+      rpDetails.appendChild(document.createElement('summary'));
+
+      // Max items field
+      var maxField = document.createElement('div');
+      maxField.className = 'field';
+      var maxLabel = document.createElement('label');
+      maxLabel.className = 'field__label';
+      maxLabel.textContent = 'Max items';
+      var maxInput = document.createElement('input');
+      maxInput.className = 'field__input';
+      maxInput.type = 'number';
+      maxInput.min = '1';
+      maxInput.max = '50';
+      maxInput.value = (item.config && item.config.maxItems) || 5;
+      maxField.appendChild(maxLabel);
+      maxField.appendChild(maxInput);
+      rpDetails.appendChild(maxField);
+
+      // Exclude types checkboxes
+      var excludeField = document.createElement('div');
+      excludeField.className = 'field';
+      var excludeLabel = document.createElement('label');
+      excludeLabel.className = 'field__label';
+      excludeLabel.textContent = 'Exclude post types';
+      excludeField.appendChild(excludeLabel);
+
+      var currentExclude = (item.config && item.config.excludeTypes) || [];
+      var postTypes = [
+        { value: 'reply', label: 'Replies' },
+        { value: 'like', label: 'Likes' },
+        { value: 'bookmark', label: 'Bookmarks' },
+        { value: 'repost', label: 'Reposts' },
+        { value: 'photo', label: 'Photos' },
+        { value: 'article', label: 'Articles' },
+        { value: 'note', label: 'Notes' }
+      ];
+
+      var checkboxes = [];
+      postTypes.forEach(function(pt) {
+        var wrapper = document.createElement('label');
+        wrapper.style.cssText = 'display:inline-flex;align-items:center;gap:0.25rem;margin-right:0.75rem;font-size:0.875rem;';
+        var cb = document.createElement('input');
+        cb.type = 'checkbox';
+        cb.value = pt.value;
+        cb.checked = currentExclude.indexOf(pt.value) !== -1;
+        checkboxes.push(cb);
+        wrapper.appendChild(cb);
+        wrapper.appendChild(document.createTextNode(pt.label));
+        excludeField.appendChild(wrapper);
+      });
+      rpDetails.appendChild(excludeField);
+
+      // Save / Cancel buttons
+      var rpButtons = document.createElement('div');
+      rpButtons.className = 'hp-edit-panel__buttons';
+
+      var rpSaveBtn = document.createElement('button');
+      rpSaveBtn.type = 'button';
+      rpSaveBtn.className = 'button button--primary button--small';
+      rpSaveBtn.textContent = 'Apply';
+      rpSaveBtn.addEventListener('click', function() {
+        var excluded = [];
+        checkboxes.forEach(function(cb) {
+          if (cb.checked) excluded.push(cb.value);
+        });
+        editFn(item._key, Object.assign({}, item.config, {
+          maxItems: parseInt(maxInput.value, 10) || 5,
+          excludeTypes: excluded
+        }));
+        rpDetails.open = false;
+      });
+
+      var rpCancelBtn = document.createElement('button');
+      rpCancelBtn.type = 'button';
+      rpCancelBtn.className = 'button button--small button--secondary';
+      rpCancelBtn.textContent = 'Cancel';
+      rpCancelBtn.addEventListener('click', function() { rpDetails.open = false; });
+
+      rpButtons.appendChild(rpSaveBtn);
+      rpButtons.appendChild(rpCancelBtn);
+      rpDetails.appendChild(rpButtons);
+
+      container.appendChild(rpDetails);
     }
 
     return container;
